@@ -64,13 +64,13 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://graph.instagram.com/v22.0/17841431938621895/messages",
+        "url": "https://graph.instagram.com/v22.0/{you_id}/messages",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer IGAAcXIb0eZCxpBZAE91VlRIVTQxQk9DV3JSd0M2dW0tcm9TalBQX0I3NzF2X09pbTZAubExScm4xYm84dG82REd0YkRHS2tnQ280aG4weHMtYm8zU2E3RkJuTW1oVDdYM3lSUlJ6YTc0TWZALT29aMld2LUJ5eUxnb3FETmJYNFdXTQZDZD"
+              "value": "Bearer {your_key}"
             }
           ]
         },

@@ -1,36 +1,42 @@
 {
-  "name": "Periódico do clima",
+  "name": "Schedule_Weather",
   "nodes": [
     {
       "parameters": {
-        "url": "=https://api.openweathermap.org/data/2.5/weather?q={your_location},ph&APPID={your_key}&units=metric&lang=pt_br",
+        "url": "=https://api.openweathermap.org/data/2.5/weather?q=Jataí,Go,ph&APPID={your_api_key}&units=metric&lang=pt_br",
         "options": {}
       },
       "id": "877694b3-50ff-40ac-935d-60a082115511",
       "name": "Get Weather Data from OpenWeatherMap",
       "type": "n8n-nodes-base.httpRequest",
       "position": [
-        80,
+        -224,
         144
       ],
-      "typeVersion": 4.2
+      "typeVersion": 4.2,
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "notes": "Api error"
     },
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Analise os seguintes dados meteorológicos para a cidade de {{ $json.name }} e crie um relatório formatado, seguindo as regras da sua persona \"Syan\".\n\n**Dados Brutos:**\n- Condição: {{ $json.weather[0].description }}\n- Temperatura Atual: {{ $json.main.temp }}°C\n- Sensação Térmica: {{ $json.main.feels_like }}°C\n- Umidade: {{ $json.main.humidity }}%\n- Velocidade do Vento: {{ $json.wind.speed }} m/s\n- Horário do Nascer do Sol (Unix): {{ $json.sys.sunrise }}\n- Horário do Pôr do Sol (Unix): {{ $json.sys.sunset }}\n\nAgora, gere o relatório completo no formato do \"Modelo 3\", como definido no seu System Message.",
+        "text": "=Analise os seguintes dados meteorológicos para a cidade de {{ $json.name }} e crie um relatório formatado, seguindo as regras da sua persona \"Syan\".\n\n**Dados Brutos:**\n- Condição: {{ $json.weather[0].description }}\n- Temperatura Atual: {{ $json.main.temp }}°C\n- Sensação Térmica: {{ $json.main.feels_like }}°C\n- Umidade: {{ $json.main.humidity }}%\n- Velocidade do Vento: {{ $json.wind.speed }} m/s\n- Horário do Nascer do Sol (Unix): {{ $json.sys.sunrise }}\n- Horário do Pôr do Sol (Unix): {{ $json.sys.sunset }}\n- Hora atual: {{ $now }}\nAgora, gere o relatório completo no formato do \"Modelo Alpha\", como definido no seu System Message.",
         "options": {
-          "systemMessage": "Persona e Identidade\nVocê é \"Syan\", seu assistente pessoal de meteorologia. Sua personalidade é amigável, clara e prestativa.\n\nMissão Principal\nSua missão é analisar os dados meteorológicos recebidos de uma API e, com base neles, criar um relatório completo e de fácil leitura sobre a previsão do tempo para um usuário chamado Diego. O objetivo é que ele saiba exatamente como será o dia.\n\nFonte dos Dados\nVocê receberá um objeto JSON contendo os dados brutos do tempo. Sua tarefa é extrair, formatar e apresentar as informações mais importantes, como:\n\nDescrição do céu (ex: \"céu limpo\")\n\nTemperatura atual e sensação termíca\n\nUmidade do ar\n\nVelocidade do vento\n\nHorários do nascer e pôr do sol\n\nRegras de Formatação e Tom (Modelo 3)\nTítulo: Comece sempre com um título chamativo usando emojis. Ex: ☀️ *Bom dia! Previsão do tempo para [Nome da Cidade]* ☀️\n\nClareza e Objetividade: Apresente a condição principal do tempo logo no início.\n\nUso de Emojis: Utilize emojis temáticos para cada informação, tornando o relatório visual e dinâmico.\n\nTemperatura: 🌡️\n\nUmidade: 💧\n\nVento: 💨\n\nNascer/Pôr do sol: 🌅\n\nEstrutura Detalhada: Organize a mensagem em tópicos claros (Temperatura, Umidade, Vento, etc.), usando negrito (*texto*) para destacar os títulos de cada tópico.\n\nEncerramento: Termine a mensagem com uma despedida positiva, como \"Aproveite o seu dia!\".\n\nExemplo de Saída (Baseado no Modelo 3)\n☀️ Bom dia! Previsão do tempo para Jataí ☀️\n\nHoje o dia será de céu limpo e muito sol!\n\n🌡️ Temperatura: A temperatura atual é de 20°C. A máxima prevista para hoje é de 20°C.\n\n💧 Umidade: O ar está relativamente seco, com umidade de 41%.\n\n💨 Vento: Uma brisa leve de 14 km/h.\n\n🌅 O sol nasce às 06:30 e se põe às 18:08.\n\nAproveite o seu dia!"
+          "systemMessage": "=Persona e Identidade\nVocê é \"Syan\", seu assistente pessoal de meteorologia. Sua personalidade é amigável, clara e prestativa.\n\nMissão Principal\nSua missão é analisar os dados meteorológicos recebidos de uma API e, com base neles, criar um relatório completo e de fácil leitura sobre a previsão do tempo para um usuário chamado Diego. O objetivo é que ele saiba exatamente como será o dia.\n\nFonte dos Dados\nVocê receberá um objeto JSON contendo os dados brutos do tempo. Sua tarefa é extrair, formatar e apresentar as informações mais importantes, use a hora atual para definir se dirá bom dia, boa tarde ou boa noite, como:\n\nDescrição do céu (ex: \"céu limpo\")\n\nTemperatura atual e sensação termíca\n\nUmidade do ar\n\nVelocidade do vento\n\nHorários do nascer e pôr do sol\n\n\nRegras de Formatação e Tom (Modelo 3)\nTítulo: Comece sempre com um título chamativo usando emojis. Ex: ☀️ *Bom dia! Previsão do tempo para [Nome da Cidade]* ☀️\n\nClareza e Objetividade: Apresente a condição principal do tempo logo no início.\n\nUso de Emojis: Utilize emojis temáticos para cada informação, tornando o relatório visual e dinâmico.\n\nTemperatura: 🌡️\n\nUmidade: 💧\n\nVento: 💨\n\nNascer/Pôr do sol: 🌅\n\nEstrutura Detalhada: Organize a mensagem em tópicos claros (Temperatura, Umidade, Vento, etc.), usando negrito (*texto*) para destacar os títulos de cada tópico.\n\nEncerramento: Termine a mensagem com uma despedida positiva, como \"Aproveite o seu dia!\".\n\nExemplo de Saída (Baseado no Modelo Alpha)\n☀️ Bom dia! Previsão do tempo para Jataí ☀️\n\nHoje o dia será de céu limpo e muito sol!\n\n🌡️ Temperatura: A temperatura atual é de 20°C. A máxima prevista para hoje é de 20°C.\n\n💧 Umidade: O ar está relativamente seco, com umidade de 41%.\n\n💨 Vento: Uma brisa leve de 14 km/h.\n\n🌅 O sol nasce às 06:30 e se põe às 18:08.\n\nAproveite o seu dia!"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.1,
       "position": [
-        352,
-        144
+        96,
+        -48
       ],
       "id": "80373508-584f-43b1-96f0-f38fcb1d2165",
-      "name": "AI Agent1"
+      "name": "AI Agent1",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "notes": "Agent error"
     },
     {
       "parameters": {
@@ -40,8 +46,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        448,
-        336
+        80,
+        128
       ],
       "id": "7cf03f87-2870-44cb-abd5-bb99c9c2e85a",
       "name": "Google Gemini Chat Model1",
@@ -56,13 +62,13 @@
       "parameters": {
         "content": "## Gera a mensagem de previsão do tempo",
         "height": 480,
-        "width": 480,
+        "width": 432,
         "color": 3
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        288,
-        0
+        -16,
+        -192
       ],
       "typeVersion": 1,
       "id": "59a7b7f9-7bf1-493a-8336-1a5316323b79",
@@ -79,8 +85,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        880,
-        64
+        528,
+        -128
       ],
       "id": "1ffcfaa7-c49f-4544-86bc-4a6a39d435e5",
       "name": "Send to Telegram",
@@ -105,7 +111,7 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -160,
+        -512,
         144
       ],
       "id": "cf78d47e-fa74-4ed0-b20f-184f2144b319",
@@ -121,7 +127,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        0,
+        -304,
         0
       ],
       "id": "65239e27-ff2f-4ec8-847b-4f53561fafc6",
@@ -137,8 +143,8 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        784,
-        240
+        432,
+        48
       ],
       "id": "43071ce8-e7da-4ae2-9791-a0526ad2ce0e",
       "name": "Sticky Note1"
@@ -148,13 +154,13 @@
         "content": "## Manda para o Telegram",
         "height": 224,
         "width": 320,
-        "color": 6
+        "color": 4
       },
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        784,
-        0
+        432,
+        -192
       ],
       "id": "07332770-c8a8-45d3-88b4-65b5d03a9f47",
       "name": "Sticky Note2"
@@ -185,11 +191,217 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        880,
-        320
+        528,
+        128
       ],
       "id": "50640abd-8851-4edb-a2db-9877fcbba6b5",
       "name": "Send_text"
+    },
+    {
+      "parameters": {
+        "amount": 6,
+        "unit": "hours"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        576,
+        400
+      ],
+      "id": "762ede28-a48a-4cf9-a24a-0e0beb16a55f",
+      "name": "Wait",
+      "webhookId": "accae600-48c9-4f54-b569-6dcfd969e5da"
+    },
+    {
+      "parameters": {
+        "amount": 3,
+        "unit": "hours"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        576,
+        560
+      ],
+      "id": "f98630a1-552f-42fd-ab87-22484ff0d89d",
+      "name": "Wait1",
+      "webhookId": "accae600-48c9-4f54-b569-6dcfd969e5da"
+    },
+    {
+      "parameters": {
+        "content": "## If humidity is less than 80 or greater than 30",
+        "height": 432,
+        "width": 224,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        320
+      ],
+      "id": "dad22891-f832-45f5-b8bf-4cb26b0719c9",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "545b446e-2473-4bf0-8b85-75e0f8d26dff",
+              "leftValue": "={{ $('Get Weather Data from OpenWeatherMap').item.json.main.humidity }}",
+              "rightValue": 80,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            },
+            {
+              "id": "6035666e-f0ca-4703-8ee8-4a6108ab332b",
+              "leftValue": "={{ $('Get Weather Data from OpenWeatherMap').item.json.main.humidity }}",
+              "rightValue": 30,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            },
+            {
+              "id": "57b96691-3d6a-45a7-8e42-5d1703565ac8",
+              "leftValue": "={{ new Date($now).getHours() }}",
+              "rightValue": 15,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            },
+            {
+              "id": "4ca0de12-6323-4bac-bdae-8e6f2f8615d0",
+              "leftValue": "={{ new Date($now).getHours() }}",
+              "rightValue": 6,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        32,
+        464
+      ],
+      "id": "74db3058-e542-4433-8fed-0d341778c835",
+      "name": "how is humidity"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "57b96691-3d6a-45a7-8e42-5d1703565ac8",
+              "leftValue": "={{ new Date($now).getHours() }}",
+              "rightValue": 15,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            },
+            {
+              "id": "4ca0de12-6323-4bac-bdae-8e6f2f8615d0",
+              "leftValue": "={{ new Date($now).getHours() }}",
+              "rightValue": 6,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        304,
+        416
+      ],
+      "id": "8e7ff1e7-6655-4f85-bfdb-992644297b8e",
+      "name": "Becarefull time"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "57b96691-3d6a-45a7-8e42-5d1703565ac8",
+              "leftValue": "={{ new Date($now).getHours() }}",
+              "rightValue": 19,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            },
+            {
+              "id": "4ca0de12-6323-4bac-bdae-8e6f2f8615d0",
+              "leftValue": "={{ new Date($now).getHours() }}",
+              "rightValue": 6,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        304,
+        560
+      ],
+      "id": "21cf74b4-93eb-4d60-8b5f-04a439499d60",
+      "name": "Becarefull time1"
+    },
+    {
+      "parameters": {
+        "content": "## If humidity is good repeat in 6 hours, else repeat in 3 hours, but don't repeat after 9 pm",
+        "height": 432,
+        "width": 528,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        224,
+        320
+      ],
+      "id": "361758bd-21ca-482d-9f92-f87a0b14bc60",
+      "name": "Sticky Note5"
     }
   ],
   "pinData": {},
@@ -228,6 +440,11 @@
             "node": "AI Agent1",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "how is humidity",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -242,13 +459,80 @@
           }
         ]
       ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Get Weather Data from OpenWeatherMap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Get Weather Data from OpenWeatherMap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "how is humidity": {
+      "main": [
+        [
+          {
+            "node": "Becarefull time",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Becarefull time1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Becarefull time": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Becarefull time1": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": 60,
+    "timeSavedPerExecution": 1,
+    "errorWorkflow": "pg8ALIIg5c67G45X"
   },
-  "versionId": "18de4b63-b3a7-4153-9dba-6fd1ddab040b",
+  "versionId": "af498bc2-5ab2-4fd9-ad87-6c52ea62d4f1",
   "meta": {
     "instanceId": "e850d0c6aabc26b2018bc6148b0e9c4bf40af3ef3090ce6809e83bfceb4b35c8"
   },

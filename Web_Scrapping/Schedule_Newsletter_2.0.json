@@ -1,0 +1,954 @@
+{
+  "name": "Schedule_Newsletter_2.0",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "=https://r.jina.ai/{{ $('Code_to_take_one_url').item.json.found_url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept-Language",
+              "value": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7"
+            },
+            {
+              "name": "Accept",
+              "value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            },
+            {
+              "name": "Accept-Encoding",
+              "value": "gzip, deflate, br"
+            },
+            {
+              "name": "User-Agent",
+              "value": "={{ $json.random_user_agent }}"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1408,
+        -128
+      ],
+      "id": "4058be98-2ae8-4821-b870-ce56932ba397",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "url": "https://r.jina.ai/https://istoedinheiro.com.br/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept-Language",
+              "value": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7"
+            },
+            {
+              "name": "Accept",
+              "value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            },
+            {
+              "name": "Accept-Encoding",
+              "value": "gzip, deflate, br"
+            },
+            {
+              "name": "User-Agent",
+              "value": "={{ $('Code_user_desktop').item.json.random_user_agent }}"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        624,
+        208
+      ],
+      "id": "86b12fe0-c18c-4dd2-b765-29a8e6293e17",
+      "name": "Istoédinheiro",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "url": "https://r.jina.ai/https://www.gazetadopovo.com.br/economia/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept-Language",
+              "value": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7"
+            },
+            {
+              "name": "Accept",
+              "value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            },
+            {
+              "name": "Accept-Encoding",
+              "value": "gzip, deflate, br"
+            },
+            {
+              "name": "User-Agent",
+              "value": "={{ $('Code_user_desktop').item.json.random_user_agent }}"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        624,
+        -448
+      ],
+      "id": "c8eb2dbd-09d8-4d4f-b3ae-1dbce90c1f70",
+      "name": "Gazeta do povo",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 6,
+              "triggerAtMinute": 5
+            },
+            {
+              "triggerAtHour": 18,
+              "triggerAtMinute": 5
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -416,
+        -128
+      ],
+      "id": "e8bb5683-bbcc-40f3-8c74-af346b72bc8f",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "content": "## Pegar a ultima URL sobre notícias da política do portal selecionado.",
+        "height": 480,
+        "width": 688,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        848,
+        -288
+      ],
+      "typeVersion": 1,
+      "id": "4ebec3d4-25e7-47af-a095-02b7c649e7a9",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Escolhe aleatório o portal de notícias",
+        "height": 384,
+        "width": 368,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        144,
+        -256
+      ],
+      "typeVersion": 1,
+      "id": "5a6fe3f4-8672-4eb1-ae24-147321f506a6",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Code_switch').item.json.numero }}",
+                    "rightValue": 1,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    },
+                    "id": "fd9ee341-1d81-48f2-826c-a817fd2e4b89"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "1121b06c-0f43-4fca-858e-ffbff5c00008",
+                    "leftValue": "={{ $('Code_switch').item.json.numero }}",
+                    "rightValue": "2",
+                    "operator": {
+                      "type": "dateTime",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a8ec3990-d71a-47e5-af07-4f41456c6ea4",
+                    "leftValue": "={{ $('Code_switch').item.json.numero }}",
+                    "rightValue": 3,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "577c8bc4-62fa-4bc5-a60d-5de211394d7d",
+                    "leftValue": "={{ $('Code_switch').item.json.numero }}",
+                    "rightValue": 4,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "c3fdcbd3-ff8f-4e2a-80b8-70e86182cd9e",
+                    "leftValue": "={{ $('Code_switch').item.json.numero }}",
+                    "rightValue": 5,
+                    "operator": {
+                      "type": "number",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        336,
+        -176
+      ],
+      "id": "38b4aef9-e7a8-47f7-b065-bf4c677b21ae",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "content": "## Resumi a notícia selecionada.",
+        "height": 480,
+        "width": 352,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1552,
+        -288
+      ],
+      "typeVersion": 1,
+      "id": "ae5dca26-365f-430a-b500-de3d4c4d7e46",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## Gatilho agendado diariamente",
+        "height": 384,
+        "width": 400,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -480,
+        -256
+      ],
+      "typeVersion": 1,
+      "id": "52205754-f3be-4794-b132-2d9f70f69c04",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "chatId": "7006144067",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2208,
+        -224
+      ],
+      "id": "5cce53a7-2765-462b-80cc-510cb48d4305",
+      "name": "Send to Telegram",
+      "webhookId": "86fc6043-43c9-43d8-a75d-c4ece4111b72",
+      "credentials": {
+        "telegramApi": {
+          "id": "ckBftXPqYhF7h8hj",
+          "name": "Telegram Assistente Borges"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://r.jina.ai/https://www.cartacapital.com.br/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept-Language",
+              "value": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7"
+            },
+            {
+              "name": "Accept",
+              "value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            },
+            {
+              "name": "Accept-Encoding",
+              "value": "gzip, deflate, br"
+            },
+            {
+              "name": "User-Agent",
+              "value": "={{ $('Code_user_desktop').item.json.random_user_agent }}"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        624,
+        -128
+      ],
+      "id": "a53a10e5-5f3e-499e-92ed-daa57da99826",
+      "name": "CartaCapital",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "url": "https://r.jina.ai/https://www.poder360.com.br/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept-Language",
+              "value": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7"
+            },
+            {
+              "name": "Accept",
+              "value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            },
+            {
+              "name": "Accept-Encoding",
+              "value": "gzip, deflate, br"
+            },
+            {
+              "name": "User-Agent",
+              "value": "={{ $('Code_user_desktop').item.json.random_user_agent }}"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        624,
+        -288
+      ],
+      "id": "30ce476e-b74a-4d4c-893b-9ef2048baa26",
+      "name": "Poder360",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "jsCode": "const min = 1;\nconst max = 5;\n\nconst numeroAleatorio = Math.floor(Math.random() * (max - min + 1)) + min;\n\nreturn {\n  numero: numeroAleatorio\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        176,
+        -128
+      ],
+      "id": "313fa9f6-274c-4ca7-b5e9-8306b1c0cdbb",
+      "name": "Code_switch"
+    },
+    {
+      "parameters": {
+        "jsCode": "const userAgents = [\n  \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36\",\n  \"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0\",\n  \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0\",\n  \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36\",\n  \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15\",\n  \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36\"\n];\nconst randomIndex = Math.floor(Math.random() * userAgents.length);\nconst randomUserAgent = userAgents[randomIndex];\n\n// Retorna o User-Agent para ser usado no próximo nó\nreturn { 'random_user_agent': randomUserAgent };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -16,
+        -128
+      ],
+      "id": "2c964c69-39e4-4aaa-b9ce-e6e3ec5146f8",
+      "name": "Code_user_desktop",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "content": "## Enviar para WhatsApp",
+        "height": 240,
+        "width": 288,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2128,
+        -48
+      ],
+      "id": "73cd8a19-f464-4d64-a637-46b62718084c",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "## Enviar para a Telegram",
+        "height": 224,
+        "width": 288,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2128,
+        -288
+      ],
+      "id": "19992280-1079-4a5a-b968-e30ff788bc47",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "## Criar User_agent aleatório",
+        "height": 384,
+        "width": 192
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        -256
+      ],
+      "id": "707033b8-7a03-4ee8-9bf3-217d6ecc58fc",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "## Dividi mensagens longas.",
+        "height": 480,
+        "width": 192,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1920,
+        -288
+      ],
+      "id": "7ae87625-7875-4ef5-a546-d9cc005da441",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "url": "https://r.jina.ai/https://revistaoeste.com/politica/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept-Language",
+              "value": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7"
+            },
+            {
+              "name": "Accept",
+              "value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            },
+            {
+              "name": "Accept-Encoding",
+              "value": "gzip, deflate, br"
+            },
+            {
+              "name": "User-Agent",
+              "value": "={{ $('Code_user_desktop').item.json.random_user_agent }}"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        624,
+        48
+      ],
+      "id": "b7d5dae4-7a1a-4faf-be24-a869e72c33f7",
+      "name": "RevistaOeste",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "jsCode": "const text = $input.first().json.content.parts[0].text;\nconst limit = 4096;\nconst messages = [];\nlet remainingText = text;\n\n// Loop para dividir todo o texto em partes de até 4096 caracteres\nwhile (remainingText.length > 0) {\n  const chunk = remainingText.substring(0, limit);\n  messages.push({\n    json: {\n      text: chunk\n    }\n  });\n  remainingText = remainingText.substring(limit);\n}\n\nreturn messages;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1968,
+        -128
+      ],
+      "id": "2c3b65bb-3214-47af-add6-1100c2d79cce",
+      "name": "Code_factory"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "=556493174450@s.whatsapp.net",
+        "messageText": "={{ $json.text }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        2208,
+        48
+      ],
+      "id": "5665fbad-f9e6-4f57-ae68-8319f444087f",
+      "name": "Confirm_execution1",
+      "alwaysOutputData": false,
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Função que cria uma pausa (em milissegundos)\nconst sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));\n// Simular um acesso totalmente aleatório ao site.\n\n// Gera um número aleatório de milissegundos entre 0 e 00.000 (1 minuto e 30 segundos)\nconst randomDelayInMs = Math.floor(Math.random() * 90000);\n\n// Log para você saber quanto tempo esperou (opcional)\nconsole.log(`Aguardando por ${Math.round(randomDelayInMs / 1000)} segundos...`);\n\n// Pausa a execução pelo tempo sorteado\nawait sleep(randomDelayInMs);\n\n// Retorna um objeto para o próximo nó poder continuar\nreturn {};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        -128
+      ],
+      "id": "5123942e-88f0-449f-b2c8-cb069d5338aa",
+      "name": "Code_wait_start"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemma-3-4b-it",
+          "mode": "list",
+          "cachedResultName": "models/gemma-3-4b-it"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=**DADOS DE ENTRADA:**\n{{ $json.data }}\n---\nVocê é o assistente de notícias e analista político, \"Syan\" e sua missão é enviar um resumo diário de uma notícia do Brasil ou do mundo para uma pessoa chamada `Diego`. Utilize o texto coletado via scraping dos sites de design e organize o conteúdo de forma clara, objetiva e dinâmica, com o uso de emojis que reflitam o tema e o tom de cada notícia.\n\n**Informações Detalhadas:**\n\n1.  **Extração e Formatação das Notícias:**\n    * **Título da Notícia:** Apresente um título curto, impactante e adicione emojis relacionados ao tema.\n        * *Exemplos:*\n            * Notícias sobre o Governo Federal (Executivo): 🇧🇷, 🏛️\n            * Decisões do Congresso (Legislativo): 📜, 🗣️\n            * Julgamentos do STF (Judiciário): ⚖️,  gavel\n            * Notícias sobre eleições: 🗳️, 📊\n            * Impacto na economia: 💰, 💹, 📉\n    * **Descrição e Análise:** Forneça resumos e análises conforme a estrutura abaixo, complementando com emojis que ressaltem a ideia central (ex: 🚨 para algo urgente, 📌 para um ponto importante).\n    * **Link:** Inclua a URL completa para a fonte original.\n\n2.  **Estrutura da Mensagem:**\n    * Organize cada notícia no formato detalhado no exemplo abaixo.\n    * Caso haja diferentes categorias nos dados de entrada (ex: \"Executivo\", \"Legislativo\", \"Judiciário\"), divida as notícias em seções para facilitar a leitura.\n    * Use o número aleatório gerado pelo nó de código em Javascript para variar a ordem das notícias ou selecionar emojis, garantindo dinamismo na apresentação.\n\n3.  **Exemplo de Saída (Formato Obrigatório):**\n\n    ---\n    [TÍTULO IMPACTANTE DA NOTÍCIA COM EMOJI]\n\n    📌 **Resumo da Notícia:**\n    [Resumo breve da notícia, focando nos principais atores políticos e nas decisões tomadas. Use 1 ou 2 frases diretas.]\n\n    🤔 **Por que isso é importante?**\n    [Explicação do impacto da notícia no cenário político, na economia ou na vida dos cidadãos. Qual a consequência prática do fato?]\n\n    🗣️ **Pontos-chave:**\n    • [Ponto 1 sobre a notícia, ex: o argumento principal do relator]\n    • [Ponto 2 sobre a notícia, ex: a reação da oposição]\n    • [Ponto 3 sobre a notícia, ex: o próximo passo do processo]\n\n    🧠 **Nossa Análise:**\n    [Breve comentário analítico sobre o desdobramento, possíveis consequências futuras ou o contexto histórico do acontecimento.]\n\n    📰 **Leia na íntegra:**\n    🔗 [Link completo da notícia]\n\n**Notas Adicionais:**\n* Envie a mensagem exatamente nesse formato, garantindo clareza e profundidade na cobertura política."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        1600,
+        -128
+      ],
+      "id": "0f3d7803-57c6-4326-bc99-b6ad3ef053ab",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "7cVvQtTUhKtlt9LH",
+          "name": "Google Gemini D97S"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const userAgents = [\n// Android (Chrome em um Google Pixel)\n\"Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36\",\n// Android (Chrome em um Samsung Galaxy)\n\"Mozilla/5.0 (Linux; Android 15; SM-S938U1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36\",\n// Android (Firefox)\n\"Mozilla/5.0 (Android 15; Mobile; rv:136.0) Gecko/136.0 Firefox/136.0\",\n// iOS (Safari em um iPhone)\n\"Mozilla/5.0 (iPhone; CPU iPhone OS 19_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/19.0 Mobile/15E148 Safari/604.1\"\n];\nconst randomIndex = Math.floor(Math.random() * userAgents.length);\nconst randomUserAgent = userAgents[randomIndex];\n\n// Retorna o User-Agent para ser usado no próximo nó\nreturn { 'random_user_agent': randomUserAgent };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1248,
+        -144
+      ],
+      "id": "f378ebe9-2182-4774-9c35-638251283f0a",
+      "name": "Code_to_generate_user_mobile",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Pega TODOS os itens de entrada, não apenas o primeiro ($input.all())\nconst items = $input.all();\n\n// 2. Lista de palavras-chave\nconst keywords = [\n  \"presidente\",\n  \"camara\",\n  \"stf\",\n  \"stj\",\n  \"projeto-de-lei\",\n  \"nova-lei\"\n];\n\nlet targetUrl = null;\n\n// 3. Itera sobre CADA item que chegou do node anterior\n// (Data Engineering: Processamento em Batch)\nfor (const item of items) {\n  \n  // Acessa a propriedade 'url'. Se não existir, usa string vazia para não quebrar.\n  // VERIFIQUE: Se o campo no n8n chama 'link' ou 'text', mude 'item.json.url' abaixo.\n  const rawContent = item.json.url || \"\"; \n  \n  // Limpeza: Separa as URLs coladas (ex: \"...23https://...\")\n  const urls = rawContent.split(/(?=https:\\/\\/)/).filter(u => u.trim() !== \"\");\n\n  // Busca dentro das URLs extraídas deste item\n  for (const url of urls) {\n    const urlLower = url.toLowerCase();\n    \n    const match = keywords.some(keyword => urlLower.includes(keyword));\n    \n    if (match) {\n      targetUrl = url;\n      break; // Sai do loop de URLs\n    }\n  }\n\n  if (targetUrl) {\n    break; // Sai do loop de Itens (já achamos o que queríamos)\n  }\n}\n\n// 4. Retorna o resultado\nreturn [\n  {\n    json: {\n      found_url: targetUrl || \"Nenhuma URL encontrada com os filtros.\"\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        -112
+      ],
+      "id": "aa4fa6fc-1862-472a-9b80-a890e4367354",
+      "name": "Code_to_take_one_url"
+    },
+    {
+      "parameters": {
+        "jsCode": "// --- CONFIGURAÇÕES --- //\n\nconst termosProibidos = [\n  // Arquivos e Mídia\n  '.jpg', '.jpeg', '.png', '.gif', '.svg', '.webp', '.pdf', '.css', '.js',\n  // Redes Sociais\n  'facebook.com', 'twitter.com', 'instagram.com', 'linkedin.com', 'youtube.com',\n  'whatsapp.com', 't.me', 'tiktok.com', 'kwai.com', 'threads.net', '/videos', '/video',\n  'share', 'mailto:', 'javascript:',\n  // Termos Institucionais/Estruturais\n  '/login', '/entrar', '/signin', '/author/', '/autor/', '/tag/', \n  '/categoria/', '/category/', '/topic/', '/politica-de-privacidade',  '/a-forca-do-agro' ,\n  '/termos-de-uso', '/quem-somos', '/contato', '/trabalhe-conosco', '\\jornal-da-oeste-primeira-edicao' ,\n  '/newsletter', '/assine', '/publicidade', '/anuncie',\n  'google.com', 'admixer'\n];\n\n// Função para contar hífens\nfunction countChar(str, char) {\n  return str.split(char).length - 1;\n}\n\nconst results = [];\n\n// Regex para encontrar URLs\nconst urlRegex = /https?:\\/\\/[a-zA-Z0-9.\\-_~:\\/?#@!$&'*+,;=%]+/g;\n\nfor (const item of items) {\n  // 1. Pega o texto bruto\n  let text = JSON.stringify(item.json);\n  \n  // --- O PULO DO GATO (CORREÇÃO DE URL COLADA) --- //\n  // Substitui qualquer \"http\" ou \"https\" por \" http...\" (com espaço antes)\n  // Isso quebra o \"ao-macrohttps://\" em \"ao-macro https://\"\n  text = text.replace(/(https?:\\/\\/)/g, ' $1');\n\n  // Agora executamos a busca no texto corrigido\n  let match;\n  while ((match = urlRegex.exec(text)) !== null) {\n    let cleanUrl = match[0];\n\n    // --- LIMPEZA --- //\n    // Remove pontuação final e sujeira de Markdown\n    cleanUrl = cleanUrl.replace(/[\\)\\]\\}\\>\"'\\.,;]+$/, \"\");\n    \n    // Remove datas coladas no final (ex: ...noticia)15.dez.2025)\n    cleanUrl = cleanUrl.replace(/\\)\\d{1,2}\\.[a-z]{3}\\.\\d{4}$/, \"\");\n\n    if (cleanUrl.endsWith('/')) cleanUrl = cleanUrl.slice(0, -1);\n\n    // --- FILTROS --- //\n\n    // 1. Blacklist\n    const temLixo = termosProibidos.some(termo => cleanUrl.toLowerCase().includes(termo));\n    \n    // 2. Link Duplo (Segurança extra, caso o replace falhe)\n    // Verifica se \"http\" aparece mais de uma vez na mesma URL extraída\n    // (A contagem deve ser exata 1, pois usamos regex para pegar desde o inicio)\n    // Mas como o regex pega 'http' como caractere valido, precisamos garantir que nao tenha outro no meio.\n    const ocorrenciasHttp = (cleanUrl.match(/http/g) || []).length;\n    const linkDuplo = ocorrenciasHttp > 1;\n\n    // 3. REGRA DO HÍFEN (Para diferenciar Artigo de Categoria)\n    // Ex: /mundo/trump-processa-bbc (2 hífens no slug + separadores) -> OK\n    // CartaCapital e IstoÉ usam muitos hífens nas notícias.\n    const numHifens = countChar(cleanUrl, '-');\n    const ehNoticiaPeloHifen = numHifens >= 3;\n\n    // 4. Tamanho (Notícias são longas)\n    const tamanhoMinimo = cleanUrl.length > 45;\n\n    // SÓ ADICIONA SE PASSAR EM TUDO\n    if (!temLixo && !linkDuplo && tamanhoMinimo && ehNoticiaPeloHifen) {\n      results.push({\n        json: {\n          url: cleanUrl\n        }\n      });\n    }\n  }\n}\n\n// Remove duplicatas\nconst filteredResults = results.filter((item, index, self) =>\n  index === self.findIndex((t) => (\n    t.json.url === item.json.url\n  ))\n);\n\nreturn filteredResults;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        -128
+      ],
+      "id": "91f61cd5-aa73-4bb5-8ffd-d98802ce9baa",
+      "name": "Code_generic_to_filter_urls"
+    }
+  ],
+  "pinData": {
+    "Schedule Trigger": [
+      {
+        "json": {
+          "timestamp": "2025-11-08T06:05:50.021-03:00",
+          "Readable date": "November 8th 2025, 6:05:50 am",
+          "Readable time": "6:05:50 am",
+          "Day of week": "Saturday",
+          "Year": "2025",
+          "Month": "November",
+          "Day of month": "08",
+          "Hour": "06",
+          "Minute": "05",
+          "Second": "50",
+          "Timezone": "America/Sao_Paulo (UTC-03:00)"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Istoédinheiro": {
+      "main": [
+        [
+          {
+            "node": "Code_generic_to_filter_urls",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Gazeta do povo": {
+      "main": [
+        [
+          {
+            "node": "Code_generic_to_filter_urls",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Code_wait_start",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Gazeta do povo",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Poder360",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "CartaCapital",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "RevistaOeste",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Istoédinheiro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CartaCapital": {
+      "main": [
+        [
+          {
+            "node": "Code_generic_to_filter_urls",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Poder360": {
+      "main": [
+        [
+          {
+            "node": "Code_generic_to_filter_urls",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Code_switch": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code_user_desktop": {
+      "main": [
+        [
+          {
+            "node": "Code_switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RevistaOeste": {
+      "main": [
+        [
+          {
+            "node": "Code_generic_to_filter_urls",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Code_factory": {
+      "main": [
+        [
+          {
+            "node": "Send to Telegram",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Confirm_execution1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code_wait_start": {
+      "main": [
+        [
+          {
+            "node": "Code_user_desktop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Code_factory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code_to_generate_user_mobile": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code_to_take_one_url": {
+      "main": [
+        [
+          {
+            "node": "Code_to_generate_user_mobile",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code_generic_to_filter_urls": {
+      "main": [
+        [
+          {
+            "node": "Code_to_take_one_url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": 300,
+    "timeSavedPerExecution": 5,
+    "errorWorkflow": "pg8ALIIg5c67G45X"
+  },
+  "versionId": "9ae75c5a-c998-44e1-af36-9e83bf200a98",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e850d0c6aabc26b2018bc6148b0e9c4bf40af3ef3090ce6809e83bfceb4b35c8"
+  },
+  "id": "r3BE1te4iav8FRSd",
+  "tags": []
+}

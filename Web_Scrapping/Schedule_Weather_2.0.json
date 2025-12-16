@@ -1,0 +1,532 @@
+{
+  "name": "Schedule_Weather_2.0",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "=https://api.openweathermap.org/data/2.5/weather?q=Jataí,Go,ph&APPID=Your_key&units=metric&lang=pt_br",
+        "options": {}
+      },
+      "id": "877694b3-50ff-40ac-935d-60a082115511",
+      "name": "Get Weather Data from OpenWeatherMap",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        -224,
+        144
+      ],
+      "typeVersion": 4.2,
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "notes": "Api error"
+    },
+    {
+      "parameters": {
+        "content": "## Gera a mensagem de previsão do tempo",
+        "height": 480,
+        "width": 432,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -16,
+        -192
+      ],
+      "typeVersion": 1,
+      "id": "59a7b7f9-7bf1-493a-8336-1a5316323b79",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "chatId": "7006144067",
+        "text": "={{ $json.content.parts[0].text }}",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        528,
+        -128
+      ],
+      "id": "1ffcfaa7-c49f-4544-86bc-4a6a39d435e5",
+      "name": "Send to Telegram",
+      "webhookId": "86fc6043-43c9-43d8-a75d-c4ece4111b72",
+      "credentials": {
+        "telegramApi": {
+          "id": "ckBftXPqYhF7h8hj",
+          "name": "Telegram Assistente Borges"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 6
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -512,
+        144
+      ],
+      "id": "cf78d47e-fa74-4ed0-b20f-184f2144b319",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "content": "## Coleta informações do tempo para Jataí GO",
+        "height": 480,
+        "width": 256,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        0
+      ],
+      "id": "65239e27-ff2f-4ec8-847b-4f53561fafc6",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Manda para o Whatsapp",
+        "height": 240,
+        "width": 320,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        432,
+        48
+      ],
+      "id": "43071ce8-e7da-4ae2-9791-a0526ad2ce0e",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Manda para o Telegram",
+        "height": 224,
+        "width": 320,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        432,
+        -192
+      ],
+      "id": "07332770-c8a8-45d3-88b4-65b5d03a9f47",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "amount": 6,
+        "unit": "hours"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        576,
+        400
+      ],
+      "id": "762ede28-a48a-4cf9-a24a-0e0beb16a55f",
+      "name": "Wait",
+      "webhookId": "accae600-48c9-4f54-b569-6dcfd969e5da"
+    },
+    {
+      "parameters": {
+        "amount": 3,
+        "unit": "hours"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        576,
+        560
+      ],
+      "id": "f98630a1-552f-42fd-ab87-22484ff0d89d",
+      "name": "Wait1",
+      "webhookId": "accae600-48c9-4f54-b569-6dcfd969e5da"
+    },
+    {
+      "parameters": {
+        "content": "## If humidity is less than 80 or greater than 30",
+        "height": 432,
+        "width": 224,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        320
+      ],
+      "id": "dad22891-f832-45f5-b8bf-4cb26b0719c9",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "545b446e-2473-4bf0-8b85-75e0f8d26dff",
+              "leftValue": "={{ $('Get Weather Data from OpenWeatherMap').item.json.main.humidity }}",
+              "rightValue": 80,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            },
+            {
+              "id": "6035666e-f0ca-4703-8ee8-4a6108ab332b",
+              "leftValue": "={{ $('Get Weather Data from OpenWeatherMap').item.json.main.humidity }}",
+              "rightValue": 30,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            },
+            {
+              "id": "57b96691-3d6a-45a7-8e42-5d1703565ac8",
+              "leftValue": "={{ new Date($now).getHours() }}",
+              "rightValue": 15,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            },
+            {
+              "id": "4ca0de12-6323-4bac-bdae-8e6f2f8615d0",
+              "leftValue": "={{ new Date($now).getHours() }}",
+              "rightValue": 6,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        32,
+        464
+      ],
+      "id": "74db3058-e542-4433-8fed-0d341778c835",
+      "name": "how is humidity"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "57b96691-3d6a-45a7-8e42-5d1703565ac8",
+              "leftValue": "={{ new Date($now).getHours() }}",
+              "rightValue": 15,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            },
+            {
+              "id": "4ca0de12-6323-4bac-bdae-8e6f2f8615d0",
+              "leftValue": "={{ new Date($now).getHours() }}",
+              "rightValue": 6,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        304,
+        416
+      ],
+      "id": "8e7ff1e7-6655-4f85-bfdb-992644297b8e",
+      "name": "Becarefull time"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "57b96691-3d6a-45a7-8e42-5d1703565ac8",
+              "leftValue": "={{ new Date($now).getHours() }}",
+              "rightValue": 20,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            },
+            {
+              "id": "4ca0de12-6323-4bac-bdae-8e6f2f8615d0",
+              "leftValue": "={{ new Date($now).getHours() }}",
+              "rightValue": 6,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        304,
+        560
+      ],
+      "id": "21cf74b4-93eb-4d60-8b5f-04a439499d60",
+      "name": "Becarefull time1"
+    },
+    {
+      "parameters": {
+        "content": "## If humidity is good repeat in 6 hours, else repeat in 3 hours, but don't repeat after 9 pm",
+        "height": 432,
+        "width": 528,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        224,
+        320
+      ],
+      "id": "361758bd-21ca-482d-9f92-f87a0b14bc60",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "=556493174450@s.whatsapp.net",
+        "messageText": "={{ $json.content.parts[0].text }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        528,
+        128
+      ],
+      "id": "bf21b338-e1f6-476e-aa1b-5b3d409c9631",
+      "name": "Confirm_execution1",
+      "alwaysOutputData": false,
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemma-3-4b-it",
+          "mode": "list",
+          "cachedResultName": "models/gemma-3-4b-it"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=**INSTRUÇÕES DE PERSONA E FORMATO (ASSISTENTE SYAN)**\n\nSua personalidade é \"Syan\": amigável, clara e prestativa. Sua única missão é analisar os dados meteorológicos brutos fornecidos para a cidade e criar um relatório completo e de fácil leitura, no formato \"Modelo Alpha\" definido abaixo.\n\n**REGRAS DE FORMATAÇÃO (MODELO ALPHA):**\n1.  **Saudação:** Use a \"Hora atual\" para definir se deve saudar com \"Bom dia\", \"Boa tarde\" ou \"Boa noite\".\n2.  **Título:** Crie um título chamativo e direto usando emojis. Ex: ☀️ *Bom dia! Previsão do tempo para [Nome da Cidade]* ☀️\n3.  **Introdução:** Apresente a condição principal do tempo (Descrição do céu) logo no início.\n4.  **Estrutura Detalhada:** Organize as informações em tópicos, usando **negrito** (*texto*) para os títulos e os emojis temáticos OBRIGATÓRIOS.\n    * Temperatura: 🌡️ (Inclua temperatura atual e sensação térmica).\n    * Umidade: 💧\n    * Vento: 💨 (Inclua a velocidade do vento).\n    * Nascer/Pôr do sol: 🌅 (Converta os horários Unix para o formato legível HH:MM).\n5.  **Encerramento:** Termine com uma despedida positiva, como \"Aproveite o seu dia!\".\n\n--- DADOS METEOROLÓGICOS BRUTOS ---\nAnalise os seguintes dados para a cidade de **{{ $json.name }}** e crie o relatório:\n\n- Condição: {{ $json.weather[0].description }}\n- Temperatura Atual: {{ $json.main.temp }}°C\n- Sensação Térmica: {{ $json.main.feels_like }}°C\n- Umidade: {{ $json.main.humidity }}%\n- Velocidade do Vento: {{ $json.wind.speed }} m/s\n- Horário do Nascer do Sol (Unix): {{ $json.sys.sunrise }}\n- Horário do Pôr do Sol (Unix): {{ $json.sys.sunset }}\n- Hora atual: {{ $now }} (Use esta referência para a saudação e conversão dos horários Unix)\n\n**SAÍDA OBRIGATÓRIA:**\nGere APENAS o relatório completo e formatado, sem introduções, explicações ou comentários adicionais."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        96,
+        0
+      ],
+      "id": "7640df17-23cf-4de1-8008-5161bc8db60b",
+      "name": "Message a model3",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "7cVvQtTUhKtlt9LH",
+          "name": "Google Gemini D97S"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Schedule Trigger": [
+      {
+        "json": {
+          "timestamp": "2025-11-05T06:00:35.022-03:00",
+          "Readable date": "November 5th 2025, 6:00:35 am",
+          "Readable time": "6:00:35 am",
+          "Day of week": "Wednesday",
+          "Year": "2025",
+          "Month": "November",
+          "Day of month": "05",
+          "Hour": "06",
+          "Minute": "00",
+          "Second": "35",
+          "Timezone": "America/Sao_Paulo (UTC-03:00)"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Get Weather Data from OpenWeatherMap": {
+      "main": [
+        [
+          {
+            "node": "how is humidity",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Message a model3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Weather Data from OpenWeatherMap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Get Weather Data from OpenWeatherMap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Get Weather Data from OpenWeatherMap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "how is humidity": {
+      "main": [
+        [
+          {
+            "node": "Becarefull time",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Becarefull time1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Becarefull time": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Becarefull time1": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model3": {
+      "main": [
+        [
+          {
+            "node": "Send to Telegram",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Confirm_execution1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": 60,
+    "timeSavedPerExecution": 1,
+    "errorWorkflow": "pg8ALIIg5c67G45X"
+  },
+  "versionId": "6ad285e3-995b-49b8-b0ad-48e02db1fc6d",
+  "meta": {
+    "instanceId": "e850d0c6aabc26b2018bc6148b0e9c4bf40af3ef3090ce6809e83bfceb4b35c8"
+  },
+  "id": "8GcjiWvKOySxjRcs",
+  "tags": []
+}

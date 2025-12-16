@@ -1,0 +1,1805 @@
+{
+  "name": "Assistente_Syan-Whatsapp_2.0",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Entrada",
+        "height": 440,
+        "width": 472,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -752,
+        144
+      ],
+      "typeVersion": 1,
+      "id": "0ea4230e-c252-40cd-98ed-7f0cc01ebc14",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "2579c46d-780a-4d3c-87e8-f54f9de43cf8",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -720,
+        304
+      ],
+      "id": "465c28b3-1628-44bd-90e0-3837fb924774",
+      "name": "Webhook",
+      "webhookId": "2579c46d-780a-4d3c-87e8-f54f9de43cf8"
+    },
+    {
+      "parameters": {
+        "respondWith": "noData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        -560,
+        304
+      ],
+      "id": "b5a8299b-250a-48e5-b5b3-f476efecea3a",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "192efbe4-74b3-44a9-85dd-2f420cd7d17a",
+              "name": "text",
+              "value": "={{ $('Webhook').item.json.body.data.message.conversation }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1920,
+        656
+      ],
+      "id": "d2fdea83-aec7-4bf7-bb58-55b33dcf3af2",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "192efbe4-74b3-44a9-85dd-2f420cd7d17a",
+              "name": "text",
+              "value": "={{ $('Webhook').item.json.body.data.message.conversation }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1920,
+        896
+      ],
+      "id": "74d1e992-fcf5-4a3f-9ebc-6d4c505d838a",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "content": "## Classificação",
+        "height": 472,
+        "width": 536
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1024,
+        256
+      ],
+      "typeVersion": 1,
+      "id": "29471336-4b01-47bd-b911-a30c4d199164",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "192efbe4-74b3-44a9-85dd-2f420cd7d17a",
+              "name": "text",
+              "value": "={{ $('Webhook').item.json.body.data.message.conversation }}",
+              "type": "string"
+            },
+            {
+              "id": "989d992c-3dc5-48af-88ca-fb7beaa982bf",
+              "name": "number",
+              "value": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+              "type": "string"
+            },
+            {
+              "id": "92d7596e-a65d-4f1d-8daa-57a0f85a4c7f",
+              "name": "number_alt",
+              "value": "={{ $('Webhook').item.json.body.data.key.remoteJidAlt }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1920,
+        1136
+      ],
+      "id": "072324be-5dee-4e1b-920b-f755f19bc0b8",
+      "name": "Edit Fields1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "YMULQStclH6yXvyT",
+          "mode": "list",
+          "cachedResultName": "instagram Agent"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        512,
+        672
+      ],
+      "id": "aef84f67-e78f-4e86-847c-3084c089e8e7",
+      "name": "Execute Workflow3"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fbf00aac-8a27-464e-a153-2fac629246d9",
+              "leftValue": "={{ $json.body.data.key.remoteJid }}",
+              "rightValue": "=556493174450@s.whatsapp.net",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "277e2ed3-03c3-4bfa-9d0f-184502c959fd",
+              "leftValue": "={{ $json.body.data.key.remoteJid }}",
+              "rightValue": "=556492420178@s.whatsapp.net",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -272,
+        -560
+      ],
+      "id": "cb15cf45-2487-4e00-8bca-0a4201464cef",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "content": "## From whatsapp",
+        "height": 240,
+        "width": 304,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        -640
+      ],
+      "id": "721ab15f-d9d8-4201-a2d4-d279cf197c6c",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## From Instagram",
+        "height": 240,
+        "width": 304,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        416,
+        592
+      ],
+      "id": "24415004-a9f1-4058-82bc-1ea4487028e8",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Webhook').item.json.body.data.message.imageMessage.mimetype }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    },
+                    "id": "8912596e-7286-4ac9-92d8-575141a4ee11"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "has_image"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "293de565-6c62-4145-9eb9-f50ee9aec56c",
+                    "leftValue": "={{ $('Webhook').item.json.body.data.message.conversation.toLowerCase() }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "has_text"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        800,
+        336
+      ],
+      "id": "71fd2602-8efd-4e66-a8be-1eb49ec1a63b",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "messageText": "={{ $json.message }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        2240,
+        -144
+      ],
+      "id": "1aa0d202-5bb8-461d-b01f-68a91ba7fe1d",
+      "name": "Enviar texto",
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "KwXyyww9IdVIM3xy",
+          "mode": "list",
+          "cachedResultName": "agent_nutricionista"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2080,
+        -144
+      ],
+      "id": "b35d87a6-12f6-4be4-862c-14cd38305941",
+      "name": "Execute nutricionista"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "JjiUJfJWW8S2MQnM",
+          "mode": "list",
+          "cachedResultName": "Rag_principais_leis_Brasil"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2080,
+        656
+      ],
+      "id": "90aaebd0-7441-4a28-a5fc-35c4c2b3175e",
+      "name": "Execute leis"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "uwshHj2XaCycus8c",
+          "mode": "list",
+          "cachedResultName": "Rag_universidade_federal_de_jataí"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2080,
+        896
+      ],
+      "id": "08a0a694-f808-4ae3-aaa8-6b11a8576435",
+      "name": "Execute universidade"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "i8XaUBkcQj4fOkP6",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/i8XaUBkcQj4fOkP6",
+          "cachedResultName": "Monitoramento_financeiro_main"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2080,
+        1136
+      ],
+      "id": "36992b2c-d15e-4f71-99dd-b68471c122bb",
+      "name": "Execute finanças"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "192efbe4-74b3-44a9-85dd-2f420cd7d17a",
+              "name": "text",
+              "value": "={{ $('Webhook').item.json.body.data.message.conversation }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1920,
+        -64
+      ],
+      "id": "834a91b8-f161-403f-a28a-cedf361feb81",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "content": "## Nutritionist Agent",
+        "height": 240,
+        "width": 592,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        -160
+      ],
+      "id": "7a427994-875c-4630-907c-79f9afe743cc",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Laws Agent",
+        "height": 224,
+        "width": 592,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        592
+      ],
+      "id": "cc35064f-4f3f-4c1f-8083-67d505601e06",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "## University Agent",
+        "height": 224,
+        "width": 592,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        832
+      ],
+      "id": "12959127-cc5b-4d7f-8f33-733edab44e1a",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "## Finance Agent",
+        "height": 208,
+        "width": 592,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        1088
+      ],
+      "id": "d760e23d-ba91-47cc-abe5-f2870bf5bcbb",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8b57daab-86c7-4252-8ed9-6e69ff2adc5a",
+              "leftValue": "={{ $json.body.instance }}",
+              "rightValue": "whatsapp-marialsdp",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -416,
+        304
+      ],
+      "id": "a8c38974-db6b-45e7-ae64-dbcf3fe949a3",
+      "name": "Where"
+    },
+    {
+      "parameters": {
+        "content": "## What's have in message ?",
+        "height": 272,
+        "width": 256
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        736,
+        224
+      ],
+      "id": "6c44433f-37bd-45db-94b6-f5439eae2d6d",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "messageText": "={{ $json.message }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        2240,
+        656
+      ],
+      "id": "a0f9848d-4e78-4d4e-aeb9-c1af798172f3",
+      "name": "Enviar texto1",
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "messageText": "={{ $json.message }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        2256,
+        896
+      ],
+      "id": "ee084659-6211-4084-b419-89f2b7054689",
+      "name": "Enviar texto2",
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "messageText": "={{ $json.message }}\n\n{{ $json.link_message }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        2256,
+        1136
+      ],
+      "id": "abee2274-3b15-4096-8467-d4907c825f85",
+      "name": "Enviar texto3",
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "messageText": "=Um minuto !!",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        800,
+        48
+      ],
+      "id": "cc0c6ae4-f143-4e17-a8f2-116bf5722730",
+      "name": "Confirm_execution",
+      "alwaysOutputData": false,
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Confirme execution",
+        "height": 240,
+        "width": 256,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        736,
+        -32
+      ],
+      "id": "b4b1367f-8ac6-4463-bba4-85b3c6661f14",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "content": "## Refusal to execute because of the number",
+        "height": 272,
+        "width": 256,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        736,
+        512
+      ],
+      "id": "8603223b-e899-49e5-971d-214ec784907b",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "whatsapp-diego",
+        "remoteJid": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "messageText": "=Em manutenção por Diego S. Borges",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        816
+      ],
+      "id": "f83f403f-b93d-4fe1-a4d1-42f03f5996e1",
+      "name": "Enviar texto4",
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "messageText": "=Serviços diponíveis:\n* Finanças.\n* Alimentação.\n* Consultar sobre leis\n* Consultar documentos da UFJ",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        1920,
+        176
+      ],
+      "id": "091c2401-a803-4ae4-92e8-f425ebbc0ae8",
+      "name": "Enviar texto5",
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Tutorial",
+        "height": 224,
+        "width": 288
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        112
+      ],
+      "id": "8d574d70-daa8-4cf6-a092-b4f25c99589b",
+      "name": "Sticky Note11"
+    },
+    {
+      "parameters": {
+        "content": "## Maintenance",
+        "height": 320,
+        "width": 400
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1056,
+        736
+      ],
+      "id": "e4ad83e9-170e-4efa-ade8-84b1fdedc788",
+      "name": "Sticky Note12"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "192efbe4-74b3-44a9-85dd-2f420cd7d17a",
+              "name": "text",
+              "value": "={{ $('Webhook').item.json.body.data.message.conversation }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1920,
+        416
+      ],
+      "id": "b0b61585-95a1-4522-81d7-caa301b174eb",
+      "name": "Edit Fields5"
+    },
+    {
+      "parameters": {
+        "content": "## New Number",
+        "height": 224,
+        "width": 592,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        352
+      ],
+      "id": "15b7bd21-81a9-4e5f-b6ff-ba5b28d06325",
+      "name": "Sticky Note13"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "messageText": "={{ $json.message }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        2240,
+        416
+      ],
+      "id": "c084db73-9c5d-4a73-a014-f7e7aa94c8ab",
+      "name": "Enviar texto6",
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "hcWiaqzOaM82nCrb",
+          "mode": "list",
+          "cachedResultName": "upload_new_number"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        2080,
+        416
+      ],
+      "id": "e923fa5a-e522-49c4-807c-40a09fa83333",
+      "name": "Execute new number"
+    },
+    {
+      "parameters": {
+        "content": "## Cadastred Number ",
+        "height": 240,
+        "width": 976
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        112
+      ],
+      "id": "8cc1e13a-612f-4237-a8aa-9135abb02ddc",
+      "name": "Sticky Note14"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "050624c9-fadc-4cfb-b264-d4836d4f3c2f",
+              "name": "query.sql",
+              "value": "=SELECT * FROM accept_numbers WHERE number = {{ $json.numeroExtraido }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        192
+      ],
+      "id": "c9e1521e-87c8-4475-93c4-7ac1c98eab2e",
+      "name": "querry_to_consult"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "=556493174450@s.whatsapp.net",
+        "messageText": "=Você recebeu uma mensagem de {{ $('Webhook').item.json.body.data.pushName }}, seu telefone é: {{ $('take_number').item.json.numeroExtraido }}, ele disse o seguinte: {{ $('Webhook').item.json.body.data.message.conversation }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        816,
+        640
+      ],
+      "id": "9216b7f7-11d9-48ea-b13c-3d31b0e36900",
+      "name": "Confirm_execution1",
+      "alwaysOutputData": false,
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d40ddb95-2efb-4752-82e9-9388e2644b94",
+              "leftValue": "={{ $json.numeroExtraido }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        80,
+        192
+      ],
+      "id": "1b94e7c3-c71e-4aed-8f86-90aa41168eeb",
+      "name": "there_is_number?"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first();\n\nconst mensagem = $input.first().json.body.data.key.remoteJid\nconst mensagem_alt = $input.first().json.body.data.key.remoteJidAlt;\nconst conversation = $input.first().json.body.data.message.conversation; // pegue o campo conversation conforme a estrutura do JSON\nconst regexNum = /55\\d{10,13}\\b/;\n\nconst matchNum = typeof mensagem === 'string' ? mensagem.match(regexNum) : null;\nconst matchNum_alt = typeof mensagem_alt === 'string' ? mensagem_alt.match(regexNum) : null;\n\nlet numeroExtraido = null;\n  \nif (matchNum) {\n  numeroExtraido = matchNum[0];\n}\n\nif (matchNum_alt && matchNum == null) {\n  numeroExtraido = matchNum_alt[0];\n}\n  \nreturn [\n  {\n    ...input.json.body.data, // preserva todos os dados da entrada\n    numeroExtraido,\n    conversation, // adiciona o campo conversation explicitamente\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -64,
+        192
+      ],
+      "id": "0ca8425b-b207-4d21-8617-a68410d2152e",
+      "name": "take_number"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "OoeFE85VUha9fJec",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/OoeFE85VUha9fJec",
+          "cachedResultName": "query_executor_subworkflow"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        400,
+        176
+      ],
+      "id": "1ac696ad-91cc-41b0-b6a4-e33b3ce20130",
+      "name": "consult_number_in_database?",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "65b00d56-3805-4a82-9008-f40301d9cc5d",
+              "leftValue": "={{ $json.response }}",
+              "rightValue": "=",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": "=",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        576,
+        192
+      ],
+      "id": "2c9dbc44-34c6-470a-9cd4-f2dfa98ae685",
+      "name": "number_in_database?",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "={{ $('Webhook').item.json.body.data.key.remoteJid }}",
+        "messageText": "=Desculpa estou com dificuldades agora, vamos tentar de novo em alguns minutos !! ",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        496,
+        432
+      ],
+      "id": "6c1c33f0-4cc9-4f19-a1ff-5dbce37e4769",
+      "name": "Confirm_execution2",
+      "alwaysOutputData": false,
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Can't take number",
+        "height": 208,
+        "width": 304,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        416,
+        368
+      ],
+      "id": "24e712f0-6a6c-47f5-b555-0b89f7b4cbdb",
+      "name": "Sticky Note15"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "d40ddb95-2efb-4752-82e9-9388e2644b94",
+              "leftValue": "={{ $json.body.data.key.participantAlt }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -224,
+        192
+      ],
+      "id": "832b5be1-2de5-4065-b27e-01a89b43c0a1",
+      "name": "From_group?"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemma-3-4b-it",
+          "mode": "list",
+          "cachedResultName": "models/gemma-3-4b-it"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Você é um classificador de intenções extremamente preciso. Sua única tarefa é classificar a mensagem do usuário em UMA das categorias mutuamente exclusivas fornecidas abaixo.\n\nVocê DEVE responder APENAS com o nome da categoria que melhor se encaixa. NÃO use formatação (como aspas ou colchetes) e NÃO inclua explicações ou texto adicional.\n\nAs categorias e suas descrições são:\n\n1. Comida: Se o usuário estiver falando sobre alimentos ou tiver mandado uma foto sobre alimento.\n2. Nada: Se o texto do usuário enviar mensagem apenas de cumprimento, ou se não tiver relação com leis, curso, universidade, faculdade, contas ou registro de número.\n3. Registrar número: Se o usuário pedir especificamente para registrar um novo número de telefone.\n4. Leis: Se o usuário estiver pedindo informações sobre leis ou consultando informações de algum livro de lei.\n5. Faculdade: Se o usuário perguntar algo sobre curso, universidade, faculdade.\n6. Finanças: Se o usuário estiver consultando uma conta, pedindo para adicionar um novo registro (nova conta), informando registro de uma nova conta, ou pedindo para deletar uma conta/registro.\n\n---\nMENSAGEM A SER CLASSIFICADA:\n\n{{$('Webhook').item.json.body.data.message.conversation.toLowerCase()}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        1056,
+        448
+      ],
+      "id": "dd52dc1f-856b-4f8b-b26e-c554724058a0",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "7cVvQtTUhKtlt9LH",
+          "name": "Google Gemini D97S"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "7a728ca6-fbb6-496e-9479-f10f45a3fe5f",
+                    "leftValue": "={{ $json.content.parts[0].text }}",
+                    "rightValue": "Comida",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Nutricionista"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "077fd3e5-4a47-42b6-aa80-110128c9bda3",
+                    "leftValue": "={{ $json.content.parts[0].text }}",
+                    "rightValue": "Nada",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Nada"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "34115d99-120d-43bb-b2fa-78a50fbcc62d",
+                    "leftValue": "={{ $json.content.parts[0].text }}",
+                    "rightValue": "Registrar número",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Registrar número"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "3c83faaf-1b71-459e-b0bd-253a8323aec6",
+                    "leftValue": "={{ $json.content.parts[0].text }}",
+                    "rightValue": "Leis",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Leis"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d3e7b3b4-d8a7-4257-bfd9-321b17839bcf",
+                    "leftValue": "={{ $json.content.parts[0].text }}",
+                    "rightValue": "Faculdade",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Faculdade"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.content.parts[0].text }}",
+                    "rightValue": "Finanças",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "08d0e5d8-ca6a-4ef0-8a99-32214dd78780"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Finanças"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        1376,
+        384
+      ],
+      "id": "ce22c6a8-7077-47fa-8236-4b9ea192ce0b",
+      "name": "Switch1"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "connection": "keep-alive",
+            "host": "n8n-diego.dsbdocker.shop",
+            "x-forwarded-scheme": "https",
+            "x-forwarded-proto": "https",
+            "x-forwarded-for": "172.18.0.1",
+            "x-real-ip": "172.18.0.1",
+            "content-length": "1751",
+            "accept": "application/json, text/plain, */*",
+            "content-type": "application/json",
+            "user-agent": "axios/1.12.2",
+            "accept-encoding": "gzip, compress, deflate, br"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "event": "messages.upsert",
+            "instance": "whatsapp-marialsdp",
+            "data": {
+              "key": {
+                "remoteJid": "164450053177409@lid",
+                "remoteJidAlt": "556493174450@s.whatsapp.net",
+                "fromMe": false,
+                "id": "ACE94B4FBE00E5EE63F4F7D45E4A18BB",
+                "participant": "",
+                "addressingMode": "lid"
+              },
+              "pushName": "Diego Borges",
+              "status": "DELIVERY_ACK",
+              "message": {
+                "messageContextInfo": {
+                  "deviceListMetadata": {
+                    "senderKeyIndexes": [],
+                    "recipientKeyIndexes": [],
+                    "senderKeyHash": {
+                      "0": 227,
+                      "1": 138,
+                      "2": 17,
+                      "3": 24,
+                      "4": 61,
+                      "5": 25,
+                      "6": 125,
+                      "7": 25,
+                      "8": 167,
+                      "9": 173
+                    },
+                    "senderTimestamp": {
+                      "low": 1764674751,
+                      "high": 0,
+                      "unsigned": true
+                    },
+                    "recipientKeyHash": {
+                      "0": 244,
+                      "1": 128,
+                      "2": 26,
+                      "3": 96,
+                      "4": 206,
+                      "5": 72,
+                      "6": 100,
+                      "7": 38,
+                      "8": 71,
+                      "9": 241
+                    },
+                    "recipientTimestamp": {
+                      "low": 1765821275,
+                      "high": 0,
+                      "unsigned": true
+                    }
+                  },
+                  "deviceListMetadataVersion": 2,
+                  "messageSecret": {
+                    "0": 95,
+                    "1": 26,
+                    "2": 115,
+                    "3": 78,
+                    "4": 177,
+                    "5": 242,
+                    "6": 164,
+                    "7": 90,
+                    "8": 211,
+                    "9": 54,
+                    "10": 85,
+                    "11": 76,
+                    "12": 215,
+                    "13": 184,
+                    "14": 243,
+                    "15": 129,
+                    "16": 164,
+                    "17": 143,
+                    "18": 207,
+                    "19": 227,
+                    "20": 155,
+                    "21": 176,
+                    "22": 103,
+                    "23": 208,
+                    "24": 113,
+                    "25": 236,
+                    "26": 6,
+                    "27": 118,
+                    "28": 9,
+                    "29": 34,
+                    "30": 64,
+                    "31": 35
+                  }
+                },
+                "conversation": "Registrar conta: compras no Mercadão da economia no valor de r$ 51,84"
+              },
+              "contextInfo": {
+                "mentionedJid": [],
+                "groupMentions": [],
+                "expiration": 7776000,
+                "ephemeralSettingTimestamp": {
+                  "low": 1731805198,
+                  "high": 0,
+                  "unsigned": false
+                },
+                "disappearingMode": {
+                  "initiator": 0,
+                  "trigger": 2,
+                  "initiatedByMe": false
+                }
+              },
+              "messageType": "conversation",
+              "messageTimestamp": 1765824205,
+              "instanceId": "daba5986-b763-44ca-8afd-6e9c97633258",
+              "source": "android"
+            },
+            "destination": "https://n8n-diego.dsbdocker.shop/webhook/2579c46d-780a-4d3c-87e8-f54f9de43cf8",
+            "date_time": "2025-12-15T15:43:26.082Z",
+            "sender": "556496538016@s.whatsapp.net",
+            "server_url": "https://debianserver.tail4dd07c.ts.net/evolution/",
+            "apikey": "01160602F1CE-461F-B98C-AD63CB9068B3"
+          },
+          "webhookUrl": "https://n8n-diego.dsbdocker.shop/webhook/2579c46d-780a-4d3c-87e8-f54f9de43cf8",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Where",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Execute leis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Execute universidade",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Execute finanças",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [],
+        []
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute nutricionista": {
+      "main": [
+        [
+          {
+            "node": "Enviar texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute leis": {
+      "main": [
+        [
+          {
+            "node": "Enviar texto1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute universidade": {
+      "main": [
+        [
+          {
+            "node": "Enviar texto2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute finanças": {
+      "main": [
+        [
+          {
+            "node": "Enviar texto3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Execute nutricionista",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Where": {
+      "main": [
+        [
+          {
+            "node": "From_group?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute Workflow3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields5": {
+      "main": [
+        [
+          {
+            "node": "Execute new number",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute new number": {
+      "main": [
+        [
+          {
+            "node": "Enviar texto6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "querry_to_consult": {
+      "main": [
+        [
+          {
+            "node": "consult_number_in_database?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "there_is_number?": {
+      "main": [
+        [
+          {
+            "node": "querry_to_consult",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Confirm_execution2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "take_number": {
+      "main": [
+        [
+          {
+            "node": "there_is_number?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "consult_number_in_database?": {
+      "main": [
+        [
+          {
+            "node": "number_in_database?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "number_in_database?": {
+      "main": [
+        [
+          {
+            "node": "Confirm_execution",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Confirm_execution1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "From_group?": {
+      "main": [
+        [
+          {
+            "node": "take_number",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Enviar texto5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": 300,
+    "errorWorkflow": "pg8ALIIg5c67G45X",
+    "timeSavedPerExecution": 5
+  },
+  "versionId": "095a9224-fd88-48e8-90a3-f08a44a1f31a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e850d0c6aabc26b2018bc6148b0e9c4bf40af3ef3090ce6809e83bfceb4b35c8"
+  },
+  "id": "0taP4dLADNyqcUiC",
+  "tags": []
+}

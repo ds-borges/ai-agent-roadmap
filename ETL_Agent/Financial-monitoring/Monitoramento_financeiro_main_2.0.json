@@ -1,0 +1,977 @@
+{
+  "name": "Monitoramento_financeiro_main_2.0",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Leitura",
+        "height": 460,
+        "width": 820,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        864,
+        528
+      ],
+      "typeVersion": 1,
+      "id": "5edb1e76-9843-4408-b6e8-cd1284c07730",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Escrita",
+        "height": 460,
+        "width": 820,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        864,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "4f0ef1b5-dbce-4ae5-bfd7-1d2d1be6ab85",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Input Subworkflow",
+        "height": 424,
+        "width": 360,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        16,
+        592
+      ],
+      "typeVersion": 1,
+      "id": "cfb43f37-c4a3-4f8d-b0fe-e8cd7b79261c",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## Classificação",
+        "height": 1528,
+        "width": 392
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        416,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "19138235-378a-4eec-92e5-0322f1011b79",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "## Remoção",
+        "height": 492,
+        "width": 820,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        864,
+        1040
+      ],
+      "typeVersion": 1,
+      "id": "73875d64-2f46-4402-a944-93b43ecf6f8a",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "tableId": "controle_financeiro",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "data",
+              "fieldValue": "={{ $json.Data }}"
+            },
+            {
+              "fieldId": "descrição",
+              "fieldValue": "={{ $json['Descrição'] }}"
+            },
+            {
+              "fieldId": "valor",
+              "fieldValue": "={{ $json.Valor }}"
+            },
+            {
+              "fieldId": "categoria",
+              "fieldValue": "={{ $json.Categoria }}"
+            },
+            {
+              "fieldId": "source",
+              "fieldValue": "={{ $json.Fonte }}"
+            },
+            {
+              "fieldId": "parcelas",
+              "fieldValue": "={{ $json.Parcelas }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1424,
+        80
+      ],
+      "id": "9cd920ac-98ab-44cb-b7bc-4393d39f1442",
+      "name": "Create a row",
+      "credentials": {
+        "supabaseApi": {
+          "id": "KMDKPkGaEfIIfjHs",
+          "name": "Supabase pessoal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "deleteTable",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "controle_financeiro",
+          "mode": "list",
+          "cachedResultName": "controle_financeiro"
+        },
+        "deleteCommand": "delete",
+        "where": {
+          "values": [
+            {
+              "column": "id",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1488,
+        1056
+      ],
+      "id": "9532e0be-b92c-4744-b75d-6c13c446b3f7",
+      "name": "Delete table or rows",
+      "credentials": {
+        "postgres": {
+          "id": "n0pVJuetcmVGDDI6",
+          "name": "Postgres pessoal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        192,
+        720
+      ],
+      "id": "d172fe4e-c575-491b-8ef1-b589968336c4",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5c1ec186-1c63-40b8-b7c7-89571f4c41d4",
+              "name": "message",
+              "value": "={{ $json.content.parts[0].text }}",
+              "type": "string"
+            },
+            {
+              "id": "3f3a1ba0-194a-4a04-a168-fb3214a73d05",
+              "name": "link_message",
+              "value": "=Para mais detalhes você pode acessar o dashboard: https://app.powerbi.com/view?r=eyJrIjoiYmQwODY5M2EtNmY2OC00YTg1LTk1NGQtMjNkNzUwYjI1OGIyIiwidCI6IjFkMDAwODY2LWI5ZDctNGU4NS1hMGNjLTg3ZGZkYjJhMDMzZSJ9  \n\n💡Dica: Os dados são sincronizados e atualizados no painel todos os dias à 7h da noite.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1472,
+        800
+      ],
+      "id": "6d1c34c1-aa86-46fa-8462-4e6998fbecb6",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5c1ec186-1c63-40b8-b7c7-89571f4c41d4",
+              "name": "message",
+              "value": "={{ $json['Resumo da operação'] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1424,
+        256
+      ],
+      "id": "ab67431f-f688-4485-b0ef-6c320e188c00",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5c1ec186-1c63-40b8-b7c7-89571f4c41d4",
+              "name": "message",
+              "value": "=Sua conta {{ $('Code_to_make_query_to_delete').item.json.criterio_busca }} no valor de R$: {{ $json.valor }} foi deletada com sucesso.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1504,
+        1232
+      ],
+      "id": "4e301d68-573a-44d0-ac01-ac7e95927afc",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5c1ec186-1c63-40b8-b7c7-89571f4c41d4",
+              "name": "message",
+              "value": "=Não foram encontrados gastos com: {{ $('Code_to_make_query_to_delete').item.json.criterio_busca }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1488,
+        1392
+      ],
+      "id": "6e954abe-b874-4779-b4d5-ce91a2a58572",
+      "name": "Edit Fields5"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "2579c46d-780a-4d3c-87e8-f54f9de43cf8",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        400
+      ],
+      "id": "bc987bbf-23b2-4dd8-9dda-5a68b0faa380",
+      "name": "Webhook",
+      "webhookId": "2579c46d-780a-4d3c-87e8-f54f9de43cf8"
+    },
+    {
+      "parameters": {
+        "respondWith": "noData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        -32,
+        400
+      ],
+      "id": "387dbb70-b710-4383-81cd-4d2e3e695d81",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "192efbe4-74b3-44a9-85dd-2f420cd7d17a",
+              "name": "text",
+              "value": "={{ $('Webhook').item.json.body.data.message.conversation }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        192,
+        400
+      ],
+      "id": "15ce5644-410c-4597-a00a-d498bce2a043",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "content": "## Input",
+        "height": 256,
+        "width": 656
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -288,
+        320
+      ],
+      "id": "e4df7fef-16a9-46fd-ab63-252a5a20e082",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemma-3-4b-it",
+          "mode": "list",
+          "cachedResultName": "models/gemma-3-4b-it"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Você é um classificador de intenções financeiras. Sua única tarefa é classificar a mensagem fornecida em UMA das seguintes categorias mutuamente exclusivas.\n\nVocê DEVE responder APENAS com a palavra da categoria: \"Registro\", \"Consulta\" ou \"Exclusão\". NÃO use formatação (como aspas ou colchetes) e NÃO inclua explicações ou texto adicional.\n\nAs categorias são:\n\n1. Registro: Se o usuário estiver informando uma nova despesa.\n2. Consulta: Se o usuário estiver pedindo para ver, consultar ou buscar informações financeiras anteriores.\n3. Exclusão: Se o usuário estiver pedindo para deletar, remover, apagar ou excluir um registro ou uma informação específica.\n\n---\nMENSAGEM FINANCEIRA A SER CLASSIFICADA:\n\n{{ $json.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        416,
+        720
+      ],
+      "id": "521fefeb-5647-4e77-b26b-768301163739",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "7cVvQtTUhKtlt9LH",
+          "name": "Google Gemini D97S"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.content.parts[0].text }}",
+                    "rightValue": "Registro",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "f28bcb31-8c4f-4679-9f8f-65e5b3f7314d"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Registro"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "71cfcb76-a06e-4aa9-befb-6572ef6eb5b0",
+                    "leftValue": "={{ $json.content.parts[0].text }}",
+                    "rightValue": "Consulta",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Consulta"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "bc27dc5e-4028-4d63-9687-041581d15fe8",
+                    "leftValue": "={{ $json.content.parts[0].text }}",
+                    "rightValue": "Exclusão",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Exclusão"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        672,
+        704
+      ],
+      "id": "e8ed5a01-ef11-4dce-b7f6-99d0bdc887b9",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemma-3-4b-it",
+          "mode": "list",
+          "cachedResultName": "models/gemma-3-4b-it"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=**REGRAS DO SISTEMA (PRIORIDADE MÁXIMA):**\nVocê é um assistente financeiro. Seu papel é interpretar mensagens de texto sobre despesas e extrair dados de forma estruturada, com o objetivo de preencher automaticamente uma planilha de controle de gasto.\n\n**Regras de Categoria:**\n1. Caso apareça a palavra \"curso\" na descrição, defina a categoria como \"Educação\".\n2. Caso apareça na descrição as palavras \"energia\", \"agua\", \"Porta\", \"Janela\", \"Piso\" e outras partes de casa, defina a categoria como \"Moradia\".\n\n**REGRAS DE FORMATAÇÃO E RESUMO:**\nVocê deve gerar uma frase de confirmação no campo \"Resumo da operação\", em tom simpático e direto, como se fosse um atendente respondendo no WhatsApp. O texto deve confirmar que a despesa foi registrada com sucesso citando os principais dados (valor, Descrição e, se houver, parcelas). Escreva a frase em uma única linha, sem quebras.\n\n**TAREFA DE EXTRAÇÃO (EXTRAIA ESTES CAMPOS E RETORNE APENAS O JSON):**\nExtraia os seguintes Campos da mensagem do usuário e retorne o resultado em formato JSON que adere ao schema:\n\n- Valor numero (em reais)\n- Descrição resumida o que foi gasto\n- Data (A data que foi feito gasto. Caso não seja nada especificado, use a data de hoje no formato YYYY-MM-DD. Exemplo: 2025-07-07)\n- Parcelas (quantas vezes o valor total foi dividido. Caso não seja informado, usar 1).\n- Categoria (ex: Igreja, Educação, Internet e Telefone, Transporte, Saúde, Temporario, Moradia, Alimentação, Presente). Caso não seja informada, usar a categoria \"Temporario\".\n- Resumo da operação (A frase de confirmação simpática de uma única linha).\n\n---\n**DADOS DE ENTRADA:**\nMensagem do Usuário:\n{{ $('When Executed by Another Workflow').item.json.text }}\n\nData de hoje:\n{{ $now }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        912,
+        192
+      ],
+      "id": "ab1a4a9f-4fbf-4249-b730-02b61b1acc7e",
+      "name": "Message a model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "7cVvQtTUhKtlt9LH",
+          "name": "Google Gemini D97S"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtém o item de entrada do nó anterior (saída do Gemma)\nconst inputItem = items[0].json;\n\n// O texto de saída do Gemma está no campo 'content.parts[0].text'\n// Se a estrutura do seu nó for diferente, ajuste esta linha.\nlet rawText = inputItem.content.parts[0].text;\n\n// --- INÍCIO DA LIMPEZA E PARSING DO JSON ---\n\n// 1. Limpa o texto: Remove o bloco de código Markdown do início (```json)\nrawText = rawText.replace(/```json\\s*/, '');\n\n// 2. Limpa o texto: Remove o bloco de código Markdown do final (```)\nrawText = rawText.replace(/\\s*```$/, '');\n\ntry {\n    // 3. Conversão: Converte a string limpa em um objeto JSON\n    const parsedJson = JSON.parse(rawText);\n    \n    // --- INÍCIO DA LÓGICA DE ATRIBUIÇÃO DE FONTE ---\n\n    // 4. Extrai a categoria do JSON PARSEADO (usando 'Categoria' com C maiúsculo, conforme a saída do Gemma)\n    const categoria = (parsedJson.Categoria ?? '').trim().toLowerCase(); \n    \n    // 5. Define um valor padrão\n    let fonte = \"Indefinido\";\n\n    // 6. Lista de categorias compartilhadas (em minúsculas)\n    const categoriasTodos = [\n      \"internet e telefone\",\n      \"transporte\",\n      \"saúde\",\n      \"moradia\",\n      \"alimentação\"\n    ];\n\n    // 7. LÓGICA PRINCIPAL para determinar a 'fonte'\n    if (categoriasTodos.includes(categoria)) {\n      fonte = \"Todos\";\n    } else if ([\"temporario\", \"presente\", \"educação\"].includes(categoria)) {\n      \n      // Tenta extrair o número do nó de entrada (When Executed by Another Workflow)\n      const inputNodeData = $('When Executed by Another Workflow').first().json;\n    \n      // Tenta a variável 'number'\n      if (inputNodeData.number) {\n        switch (inputNodeData.number) {\n          case \"556493174450@s.whatsapp.net\":\n            fonte = \"Diego\";\n            break;\n          case \"556492420178@s.whatsapp.net\":\n            fonte = \"Maísa\";\n            break;\n        }\n      }\n      \n      // Tenta a variável 'number_alt' se 'fonte' ainda for 'Indefinido'\n      if (fonte === \"Indefinido\" && inputNodeData.number_alt) {\n        switch (inputNodeData.number_alt) {\n          case \"556493174450@s.whatsapp.net\":\n            fonte = \"Diego\";\n            break;\n          case \"556492420178@s.whatsapp.net\":\n            fonte = \"Maísa\";\n            break;\n        }\n      }\n    }\n\n    // 8. Adiciona a nova informação de 'fonte' ao JSON PARSEADO\n    parsedJson.Fonte = fonte;\n\n    // 9. Retorna o JSON completo e modificado para o próximo nó\n    return [{ json: parsedJson }];\n\n} catch (error) {\n    // Caso haja um erro de parsing (se o modelo não gerou JSON válido)\n    console.error(\"Erro ao analisar JSON:\", error);\n    // Retorna o texto original ou um erro para o próximo nó lidar\n    return [{ json: { error: \"JSON Parsing Failed\", raw: rawText } }];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1232,
+        192
+      ],
+      "id": "2b29a7d7-c858-4a3f-8f8e-163969dc3621",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemma-3-4b-it",
+          "mode": "list",
+          "cachedResultName": "models/gemma-3-4b-it"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=**DADOS DE ENTRADA:**\nMensagem do usuário (para gerar a query):\n{{ $('When Executed by Another Workflow').item.json.text }}\nA data de hoje é:\n{{ $now }}\n\n---\n**REGRAS DO SISTEMA (PRIORIDADE MÁXIMA):**\nVocê é um Assistente Financeiro Pessoal. Sua única tarefa é **GERAR UMA QUERY SQL** para consultar a tabela `public.controle_financeiro` com base na mensagem do usuário. Você **NÃO DEVE** gerar texto de resposta humana, explicações, ou qualquer coisa além do código.\n\n**Regras de Geração SQL:**\n- A query deve ser gerada usando o esquema da tabela abaixo.\n- Use `data` para filtros de tempo, não `created_at`.\n- Use `SUM` para totalizar gastos.\n- Se a frase do usuário contiver uma destas palavras-chave: `Igreja`, `Educação`, `Internet e Telefone`, `Transporte`, `Saúde`, `Temporario`, `Moradia`, `Alimentação`, `Presente`, sua busca **DEVE** ser feita no campo `categoria`. Caso contrário, use o campo `descrição`.\n\n## Esquema da Tabela\nA tabela `public.controle_financeiro` contém os seguintes campos:\n- `id` (int8)\n- `data` (date)\n- `descrição` (varchar)\n- `valor` (float)\n- `parcelas` (int8)\n- `categoria` (varchar)\n- `created_at` (timestamp, default: now())\n- `source` (varchar)\n\n## Formato de Resposta OBRIGATÓRIO\n\nVocê DEVE retornar **APENAS** a query SQL, envolvida em um bloco de código Markdown com a palavra `sql`. Nenhuma outra palavra ou texto é permitido.\n\nExemplo de Formato de Saída (Use este formato EXATAMENTE):\n```sql\nSELECT SUM(valor) AS total_gasto\nFROM public.controle_financeiro\nWHERE categoria ILIKE '%Alimentação%';"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        896,
+        688
+      ],
+      "id": "ac67447f-4818-4fe4-bd4b-d1004f16e0aa",
+      "name": "Message a model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "d3Tnyg2zaYc0yG1N",
+          "name": "Google Gemini D977"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemma-3-4b-it",
+          "mode": "list",
+          "cachedResultName": "models/gemma-3-4b-it"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=**REGRAS DO SISTEMA (PRIORIDADE MÁXIMA):**\nVocê é um Assistente Financeiro Pessoal, simpático e objetivo. Sua tarefa é analisar a Pergunta do Usuário e o Resultado da Consulta para construir uma Resposta Final amigável.\n\n- A resposta deve ser direta e humana, como se fosse enviada por um atendente no WhatsApp.\n- A resposta deve sempre citar o valor final encontrado no campo \"total_gasto\" (R$ X).\n- Use a Pergunta do Usuário para dar contexto à resposta.\n- Exemplo de resposta: \"Olá! Eu verifiquei e o seu total gasto é de R$ 661,19.\"\n\n---\n**DADOS DE ENTRADA:**\n\n1. PERGUNTA ORIGINAL DO USUÁRIO:\n{{ $('When Executed by Another Workflow').item.json.text }}\n\n2. RESULTADO DA CONSULTA SQL (Resposta do Banco de Dados):\n{{ $json.response }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        1184,
+        800
+      ],
+      "id": "1524d334-a623-4238-9198-7c2b96ea1695",
+      "name": "Message a model3",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "d3Tnyg2zaYc0yG1N",
+          "name": "Google Gemini D977"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "OoeFE85VUha9fJec",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/OoeFE85VUha9fJec",
+          "cachedResultName": "query_executor_subworkflow"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        1376,
+        576
+      ],
+      "id": "8e64893c-01ac-4f39-ad04-e0f3d9b20186",
+      "name": "query_executor_subworkflow"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemma-3-4b-it",
+          "mode": "list",
+          "cachedResultName": "models/gemma-3-4b-it"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=**DADOS DE ENTRADA:**\nMensagem do usuário (para gerar a query):\n{{ $('When Executed by Another Workflow').item.json.text }}\n\n---\n**REGRAS DO SISTEMA (PRIORIDADE MÁXIMA):**\nVocê é um assistente inteligente. Sua **única tarefa** é gerar uma query SQL para buscar o ID de um registro na tabela `public.controle_financeiro` com base no pedido de exclusão do usuário. Você **NÃO DEVE** gerar texto de resposta humana, explicações, ou qualquer coisa além do código SQL.\n\n**Objetivo da Query:**\n- A query deve sempre retornar o **ID (e o valor)** do registro **mais provável** que o usuário deseja deletar.\n- A query deve sempre ordenar por `data DESC` e limitar a `LIMIT 1` para garantir que seja o registro mais recente.\n\n## Esquema da Tabela\nA tabela `public.controle_financeiro` contém os seguintes campos:\n- `id` (int8)\n- `data` (date)\n- `descrição` (varchar)\n- `valor` (float)\n- `parcelas` (int8)\n- `categoria` (varchar)\n\n## Regras para a Busca SQL\n1.  **Busca Padrão (Palavra-chave):** Se o usuário não especificar categoria/parcelas, a query deve ser:\n    `SELECT id, valor FROM public.controle_financeiro WHERE descrição ILIKE '%criterio%' ORDER BY data DESC LIMIT 1;`\n2.  **Busca Complexa (Categoria e Parcelas):** Se o pedido incluir categoria e menção a parcelamento, a query deve ser:\n    `SELECT id, valor FROM public.controle_financeiro WHERE categoria ILIKE '...' AND parcelas > 1 ORDER BY data DESC LIMIT 1;`\n\n## Formato de Resposta OBRIGATÓRIO\n\nVocê DEVE retornar **APENAS** a query SQL, envolvida em um bloco de código Markdown com a palavra `sql`. Nenhuma outra palavra ou texto é permitido.\n\nExemplo de Formato de Saída (Use este formato EXATAMENTE):\n```sql\nSELECT id, valor\nFROM public.controle_financeiro\nWHERE descrição ILIKE '%geladeira%'\nORDER BY data DESC LIMIT 1;"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        880,
+        1136
+      ],
+      "id": "4d500915-7ae0-4fbe-98ff-50f15bb14b2a",
+      "name": "Message a model6",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "d3Tnyg2zaYc0yG1N",
+          "name": "Google Gemini D977"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "OoeFE85VUha9fJec",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/OoeFE85VUha9fJec",
+          "cachedResultName": "query_executor_subworkflow"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {}
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        944,
+        1344
+      ],
+      "id": "815c23f4-904e-4fee-a177-d1d527218c46",
+      "name": "query_executor_subworkflow1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6a53084f-40ff-4ffb-854c-eaeab1178a68",
+              "leftValue": "={{ $json.response }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1120,
+        1344
+      ],
+      "id": "56c60671-5cb4-4c54-bb54-03ebc97ff803",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtém o item de entrada do nó anterior (saída do sub-fluxo de execução da query)\nconst inputItem = items[0].json;\n\n// 1. Extrai a string que está dentro do campo 'response'\nconst rawJsonString = inputItem.response;\n\nlet parsedData = {};\n\ntry {\n    // 2. Primeiro JSON.parse() remove as barras de escape (\\)\n    const step1 = JSON.parse(rawJsonString);\n    \n    // 3. Conversão de Strings para Números\n    \n    // O ID deve ser um número inteiro para comparação\n    if (step1.id) {\n        step1.id = parseInt(step1.id, 10);\n    }\n    \n    // O valor deve ser um float/número decimal para comparações\n    if (step1.valor) {\n        step1.valor = parseFloat(step1.valor);\n    }\n\n    parsedData = step1;\n\n} catch (e) {\n    // Se o parse falhar (ex: query retornou 0 resultados), \n    // retorna um objeto com valores numéricos seguros (0).\n    console.error(\"Erro ao fazer parse do JSON aninhado:\", e);\n    parsedData = { id: 0, valor: 0, error: \"JSON Parse Failed\" };\n}\n\n// Retorna o objeto JSON limpo e com valores numéricos para o próximo nó\nreturn [{\n    json: parsedData\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1328,
+        1264
+      ],
+      "id": "64e94fb4-0ded-4ed2-bc73-8a0dda01d0bb",
+      "name": "Code_to_transform_result_to_json",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtém o item de entrada do nó anterior (saída do Gemma)\nconst inputItem = items[0].json;\n\n// 1. Acesso CORRETO ao texto do Gemma (Corrige o TypeError)\n// O texto gerado pelo modelo está no campo 'content.parts[0].text'\nlet rawOutput = inputItem.content.parts[0].text;\n\n// Variáveis de saída\nlet isolatedSql = \"\";\nlet criterio = \"Indefinido\";\n\n// 2. Expressão regular para isolar o bloco SQL\nconst sqlRegex = /```sql\\s*([\\s\\S]*?)\\s*```/i;\nconst sqlMatch = rawOutput.match(sqlRegex);\n\nif (sqlMatch && sqlMatch[1]) {\n    // Isola o SQL puro (remove tags ```sql e ```)\n    isolatedSql = sqlMatch[1].trim();\n\n    // 3. Limpeza do SQL: Remove quebras de linha e espaços extras\n    // Substitui um ou mais caracteres de espaço (incluindo \\n) por um único espaço\n    isolatedSql = isolatedSql.replace(/\\s+/g, ' ');\n    \n    // 4. Extração do Critério de Busca\n    // Expressão regular para encontrar o texto entre ILIKE '%...%'\n    // Deve ser aplicada ao SQL já isolado e limpo (isolatedSql)\n    // Captura o que está dentro do '%'\n    const criterioRegex = /ILIKE\\s*'\\%(.*?)\\%'/i;\n    const criterioMatch = isolatedSql.match(criterioRegex);\n\n    if (criterioMatch && criterioMatch[1]) {\n        // O critério de busca é o primeiro grupo de captura\n        criterio = criterioMatch[1].trim();\n    }\n} else {\n    // Caso o modelo não use o formato ```sql``` (Fallback)\n    isolatedSql = rawOutput.trim().replace(/\\s+/g, ' '); \n}\n\n// 5. Retorna o SQL limpo e o critério extraído.\n// Mantenha o formato 'query.sql' se for exigido pelo nó subsequente, \n// mas o formato mais comum e flexível no n8n é retornar 'query' e 'criterio'.\nreturn [{\n    json: {\n        // A query SQL isolada e limpa (pronta para o banco de dados)\n        query: {\n          sql: isolatedSql\n        },\n        // O critério isolado (pronto para a resposta de confirmação)\n        criterio_busca: criterio\n    }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1152,
+        1136
+      ],
+      "id": "ba28c4df-256f-4a99-85b0-f91635247176",
+      "name": "Code_to_make_query_to_delete"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtém o item de entrada do nó anterior (saída do Gemma)\nconst inputItem = items[0].json;\n\n// O texto gerado pelo modelo está no campo 'content.parts[0].text'\n// IMPORTANTE: Se o nó anterior for o 'Message a model', este caminho pode ser diferente.\n// Pela sua imagem, o caminho é: content.parts[0].text\nlet rawOutput = inputItem.content.parts[0].text;\n\n// Expressão regular para encontrar o bloco ```sql...``` e capturar APENAS o SQL\n// O '([\\s\\S]*?)' captura tudo entre as tags, incluindo quebras de linha\nconst regex = /```sql\\s*([\\s\\S]*?)\\s*```/i;\n\nconst match = rawOutput.match(regex);\n\nlet isolatedSql = \"\";\n\nif (match && match[1]) {\n    // A query SQL está no primeiro grupo de captura (match[1])\n    isolatedSql = match[1].trim();\n} else {\n    // Caso o modelo não use o formato ```sql```, tenta remover o texto comum\n    // Isso é uma medida de segurança caso o modelo falhe o formato Markdown\n    isolatedSql = rawOutput\n        .replace(/\\s*Resposta Final:[\\s\\S]*/i, '') // Remove a resposta final antiga\n        .trim();\n}\n\n// Retorna a query SQL isolada sob a chave 'query'\nreturn [{\n    json: {\n        // A query SQL isolada, pronta para ser usada no nó de banco de dados\n        query: {\n          sql: isolatedSql\n        }\n    }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        592
+      ],
+      "id": "e6ec5a2b-4e4e-46db-9f67-344048d92fe7",
+      "name": "Code_to_make_query_to_consult"
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "text": "Excluir conta mercadão da economia no valor de 51,84"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Delete table or rows": {
+      "main": [
+        []
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Message a model1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Message a model2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Message a model6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model2": {
+      "main": [
+        [
+          {
+            "node": "Code_to_make_query_to_consult",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model3": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "query_executor_subworkflow": {
+      "main": [
+        [
+          {
+            "node": "Message a model3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model6": {
+      "main": [
+        [
+          {
+            "node": "Code_to_make_query_to_delete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "query_executor_subworkflow1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Code_to_transform_result_to_json",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code_to_transform_result_to_json": {
+      "main": [
+        [
+          {
+            "node": "Delete table or rows",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code_to_make_query_to_delete": {
+      "main": [
+        [
+          {
+            "node": "query_executor_subworkflow1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code_to_make_query_to_consult": {
+      "main": [
+        [
+          {
+            "node": "query_executor_subworkflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": 300,
+    "errorWorkflow": "pg8ALIIg5c67G45X",
+    "timeSavedPerExecution": 3
+  },
+  "versionId": "30581818-9864-4f5e-88ae-394f4f51eb2d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e850d0c6aabc26b2018bc6148b0e9c4bf40af3ef3090ce6809e83bfceb4b35c8"
+  },
+  "id": "i8XaUBkcQj4fOkP6",
+  "tags": []
+}

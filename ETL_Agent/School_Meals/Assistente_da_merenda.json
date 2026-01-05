@@ -1,0 +1,1505 @@
+{
+  "name": "Assistente_da_merenda",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "25ccaf5e-a7a4-4032-8ad7-6dc16affc2bd",
+      "name": "Telegram Trigger",
+      "webhookId": "bcf60c47-e603-4aa1-bfc3-d0bf0a7c865a",
+      "credentials": {
+        "telegramApi": {
+          "id": "pXCTKrjCa7LTrmg5",
+          "name": "Assistente MAPA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "mapa_merenda",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "alunos_da_pre_escola",
+              "fieldValue": "={{ $json.alunos_da_pre_escola }}"
+            },
+            {
+              "fieldId": "alunos_do_ensino_fundamental",
+              "fieldValue": "={{ $json.alunos_do_ensino_fundamental }}"
+            },
+            {
+              "fieldId": "alunos_do_estado",
+              "fieldValue": "={{ $json.alunos_do_estado }}"
+            },
+            {
+              "fieldId": "outros",
+              "fieldValue": "={{ $json.outros }}"
+            },
+            {
+              "fieldId": "acafrao",
+              "fieldValue": "={{ $json.acafrao }}"
+            },
+            {
+              "fieldId": "arroz",
+              "fieldValue": "={{ $json.arroz }}"
+            },
+            {
+              "fieldId": "acucar",
+              "fieldValue": "={{ $json.acucar }}"
+            },
+            {
+              "fieldId": "achocolatado",
+              "fieldValue": "={{ $json.achocolatado }}"
+            },
+            {
+              "fieldId": "azeite",
+              "fieldValue": "={{ $json.azeite }}"
+            },
+            {
+              "fieldId": "amido_de_milho",
+              "fieldValue": "={{ $json.amido_de_milho }}"
+            },
+            {
+              "fieldId": "batata_palha",
+              "fieldValue": "={{ $json.batata_palha }}"
+            },
+            {
+              "fieldId": "bolacha_cream_cracker",
+              "fieldValue": "={{ $json.bolacha_cream_cracker }}"
+            },
+            {
+              "fieldId": "bolacha_rosquinha_de_coco",
+              "fieldValue": "={{ $json.bolacha_rosquinha_de_coco }}"
+            },
+            {
+              "fieldId": "extrato_de_tomate",
+              "fieldValue": "={{ $json.extrato_de_tomate }}"
+            },
+            {
+              "fieldId": "colorau",
+              "fieldValue": "={{ $json.colorau }}"
+            },
+            {
+              "fieldId": "farinha_de_mandioca",
+              "fieldValue": "={{ $json.farinha_de_mandioca }}"
+            },
+            {
+              "fieldId": "feijao",
+              "fieldValue": "={{ $json.feijao }}"
+            },
+            {
+              "fieldId": "aptamil_1_nestogeno_1",
+              "fieldValue": "={{ $json.aptamil_1_nestogeno_1 }}"
+            },
+            {
+              "fieldId": "aptamil_2_nestogeno_2",
+              "fieldValue": "={{ $json.aptamil_2_nestogeno_2 }}"
+            },
+            {
+              "fieldId": "aptamil_sem_lactose",
+              "fieldValue": "={{ $json.aptamil_sem_lactose }}"
+            },
+            {
+              "fieldId": "pregomin_pepti",
+              "fieldValue": "={{ $json.pregomin_pepti }}"
+            },
+            {
+              "fieldId": "dieta_enteral_fortini",
+              "fieldValue": "={{ $json.dieta_enteral_fortini }}"
+            },
+            {
+              "fieldId": "leite_integral",
+              "fieldValue": "={{ $json.leite_integral }}"
+            },
+            {
+              "fieldId": "leite_integral_sem_lactose",
+              "fieldValue": "={{ $json.leite_integral_sem_lactose }}"
+            },
+            {
+              "fieldId": "macarrao_espaguete",
+              "fieldValue": "={{ $json.macarrao_espaguete }}"
+            },
+            {
+              "fieldId": "macarrao_parafuso",
+              "fieldValue": "={{ $json.macarrao_parafuso }}"
+            },
+            {
+              "fieldId": "margarina",
+              "fieldValue": "={{ $json.margarina }}"
+            },
+            {
+              "fieldId": "manteiga",
+              "fieldValue": "={{ $json.manteiga }}"
+            },
+            {
+              "fieldId": "requeijao",
+              "fieldValue": "={{ $json.requeijao }}"
+            },
+            {
+              "fieldId": "oleo_de_soja",
+              "fieldValue": "={{ $json.oleo_de_soja }}"
+            },
+            {
+              "fieldId": "sal_refinado",
+              "fieldValue": "={{ $json.sal_refinado }}"
+            },
+            {
+              "fieldId": "carne_moida_bovina",
+              "fieldValue": "={{ $json.carne_moida_bovina }}"
+            },
+            {
+              "fieldId": "carne_picada_bovina",
+              "fieldValue": "={{ $json.carne_picada_bovina }}"
+            },
+            {
+              "fieldId": "filezinho_de_peito_de_frango_sassami",
+              "fieldValue": "={{ $json.filezinho_de_peito_de_frango_sassami }}"
+            },
+            {
+              "fieldId": "lombo_suino_picado",
+              "fieldValue": "={{ $json.lombo_suino_picado }}"
+            },
+            {
+              "fieldId": "frango_inteiro",
+              "fieldValue": "={{ $json.frango_inteiro }}"
+            },
+            {
+              "fieldId": "file_de_tilapia",
+              "fieldValue": "={{ $json.file_de_tilapia }}"
+            },
+            {
+              "fieldId": "salsicha",
+              "fieldValue": "={{ $json.salsicha }}"
+            },
+            {
+              "fieldId": "ovo",
+              "fieldValue": "={{ $json.ovo }}"
+            },
+            {
+              "fieldId": "biscoito_de_polvilho",
+              "fieldValue": "={{ $json.biscoito_de_polvilho }}"
+            },
+            {
+              "fieldId": "biscoito_de_queijo",
+              "fieldValue": "={{ $json.biscoito_de_queijo }}"
+            },
+            {
+              "fieldId": "bolo",
+              "fieldValue": "={{ $json.bolo }}"
+            },
+            {
+              "fieldId": "pao_careca",
+              "fieldValue": "={{ $json.pao_careca }}"
+            },
+            {
+              "fieldId": "pao_frances",
+              "fieldValue": "={{ $json.pao_frances }}"
+            },
+            {
+              "fieldId": "pao_de_milho",
+              "fieldValue": "={{ $json.pao_de_milho }}"
+            },
+            {
+              "fieldId": "rosca",
+              "fieldValue": "={{ $json.rosca }}"
+            },
+            {
+              "fieldId": "torrada",
+              "fieldValue": "={{ $json.torrada }}"
+            },
+            {
+              "fieldId": "abobora_madura",
+              "fieldValue": "={{ $json.abobora_madura }}"
+            },
+            {
+              "fieldId": "abobrinha_verde",
+              "fieldValue": "={{ $json.abobrinha_verde }}"
+            },
+            {
+              "fieldId": "alface",
+              "fieldValue": "={{ $json.alface }}"
+            },
+            {
+              "fieldId": "abacaxi",
+              "fieldValue": "={{ $json.abacaxi }}"
+            },
+            {
+              "fieldId": "alho",
+              "fieldValue": "={{ $json.alho }}"
+            },
+            {
+              "fieldId": "batata_inglesa",
+              "fieldValue": "={{ $json.batata_inglesa }}"
+            },
+            {
+              "fieldId": "batata_doce",
+              "fieldValue": "={{ $json.batata_doce }}"
+            },
+            {
+              "fieldId": "banana",
+              "fieldValue": "={{ $json.banana }}"
+            },
+            {
+              "fieldId": "beterraba",
+              "fieldValue": "={{ $json.beterraba }}"
+            },
+            {
+              "fieldId": "cebola_de_cabeca",
+              "fieldValue": "={{ $json.cebola_de_cabeca }}"
+            },
+            {
+              "fieldId": "cebolinha_verde",
+              "fieldValue": "={{ $json.cebolinha_verde }}"
+            },
+            {
+              "fieldId": "cenoura",
+              "fieldValue": "={{ $json.cenoura }}"
+            },
+            {
+              "fieldId": "chuchu",
+              "fieldValue": "={{ $json.chuchu }}"
+            },
+            {
+              "fieldId": "couve",
+              "fieldValue": "={{ $json.couve }}"
+            },
+            {
+              "fieldId": "inhame",
+              "fieldValue": "={{ $json.inhame }}"
+            },
+            {
+              "fieldId": "laranja",
+              "fieldValue": "={{ $json.laranja }}"
+            },
+            {
+              "fieldId": "limao",
+              "fieldValue": "={{ $json.limao }}"
+            },
+            {
+              "fieldId": "mandioca",
+              "fieldValue": "={{ $json.mandioca }}"
+            },
+            {
+              "fieldId": "melancia",
+              "fieldValue": "={{ $json.melancia }}"
+            },
+            {
+              "fieldId": "mamao",
+              "fieldValue": "={{ $json.mamao }}"
+            },
+            {
+              "fieldId": "maca",
+              "fieldValue": "={{ $json.maca }}"
+            },
+            {
+              "fieldId": "melao",
+              "fieldValue": "={{ $json.melao }}"
+            },
+            {
+              "fieldId": "milho",
+              "fieldValue": "={{ $json.milho }}"
+            },
+            {
+              "fieldId": "repolho_verde",
+              "fieldValue": "={{ $json.repolho_verde }}"
+            },
+            {
+              "fieldId": "repolho_roxo",
+              "fieldValue": "={{ $json.repolho_roxo }}"
+            },
+            {
+              "fieldId": "salsinha",
+              "fieldValue": "={{ $json.salsinha }}"
+            },
+            {
+              "fieldId": "tangerina_mexerica_",
+              "fieldValue": "={{ $json.tangerina_mexerica_ }}"
+            },
+            {
+              "fieldId": "tomate",
+              "fieldValue": "={{ $json.tomate }}"
+            },
+            {
+              "fieldId": "vagem",
+              "fieldValue": "={{ $json.vagem }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        384,
+        0
+      ],
+      "id": "286ab248-72ac-45d2-9219-ab36c1ab25c2",
+      "name": "Create a row",
+      "credentials": {
+        "supabaseApi": {
+          "id": "KMDKPkGaEfIIfjHs",
+          "name": "Supabase pessoal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "deleteTable",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "mapa_merenda",
+          "mode": "list",
+          "cachedResultName": "mapa_merenda"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        208,
+        -176
+      ],
+      "id": "45dfab9b-be03-4a4a-be1e-dc4c7747f394",
+      "name": "Delete table or rows",
+      "credentials": {
+        "postgres": {
+          "id": "n0pVJuetcmVGDDI6",
+          "name": "Postgres pessoal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "=Pronto\n\n{{ $json.texto_formatado }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        432,
+        160
+      ],
+      "id": "a454922c-abbc-4694-9b5d-1195ae4ac124",
+      "name": "Send a text message",
+      "webhookId": "d5c6de87-755e-422f-8203-d2a6581a2601",
+      "credentials": {
+        "telegramApi": {
+          "id": "pXCTKrjCa7LTrmg5",
+          "name": "Assistente MAPA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "mv_mapa_calculado"
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        752,
+        0
+      ],
+      "id": "da5a7c53-b49c-4a8d-af5e-d54a28eb22fb",
+      "name": "Get many rows",
+      "credentials": {
+        "supabaseApi": {
+          "id": "KMDKPkGaEfIIfjHs",
+          "name": "Supabase pessoal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "12NI-uzaKtCnXDXFdu7MDUW9XX-oMy_SziA23O5JJAz8",
+          "mode": "list",
+          "cachedResultName": "Mapa da merenda",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12NI-uzaKtCnXDXFdu7MDUW9XX-oMy_SziA23O5JJAz8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Original",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12NI-uzaKtCnXDXFdu7MDUW9XX-oMy_SziA23O5JJAz8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "alunos_da_pre_escola": "={{ $('extract_prodults').item.json.alunos_da_pre_escola }}",
+            "alunos_do_ensino_fundamental": "={{ $('extract_prodults').item.json.alunos_do_ensino_fundamental }}",
+            "alunos_do_estado": "={{ $('extract_prodults').item.json.alunos_do_estado }}",
+            "outros": "={{ $('extract_prodults').item.json.outros }}",
+            "NÃO PERECÍVEIS": "",
+            "acafrao": "={{ $json.acafrao }}",
+            "arroz": "={{ $json.arroz }}",
+            "acucar": "={{ $json.acucar }}",
+            "achocolatado": "={{ $json.achocolatado }}",
+            "azeite": "={{ $json.azeite }}",
+            "amido_de_milho": "={{ $json.amido_de_milho }}",
+            "batata_palha": "={{ $json.batata_palha }}",
+            "bolacha_cream_cracker": "={{ $json.bolacha_cream_cracker }}",
+            "bolacha_rosquinha_de_coco": "={{ $json.bolacha_rosquinha_de_coco }}",
+            "extrato_de_tomate": "={{ $('extract_prodults').item.json.extrato_de_tomate }}",
+            "colorau": "={{ $json.colorau }}",
+            "farinha_de_mandioca": "={{ $json.farinha_de_mandioca }}",
+            "feijao": "={{ $('extract_prodults').item.json.feijao }}",
+            "aptamil_1_nestogeno_1": "={{ $json.aptamil_1_nestogeno_1 }}",
+            "aptamil_2_nestogeno_2": "={{ $json.aptamil_2_nestogeno_2 }}",
+            "aptamil_sem_lactose": "={{ $json.aptamil_sem_lactose }}",
+            "pregomin_pepti": "={{ $json.pregomin_pepti }}",
+            "dieta_enteral_fortini": "={{ $json.dieta_enteral_fortini }}",
+            "leite_integral": "={{ $json.leite_integral }}",
+            "leite_integral_sem_lactose": "={{ $json.leite_integral_sem_lactose }}",
+            "macarrao_espaguete": "={{ $json.macarrao_espaguete }}",
+            "macarrao_parafuso": "={{ $json.macarrao_parafuso }}",
+            "oleo_de_soja": "={{ $json.oleo_de_soja }}",
+            "sal_refinado": "={{ $json.sal_refinado }}",
+            "carne_moida_bovina": "={{ $json.carne_moida_bovina }}",
+            "carne_picada_bovina": "={{ $json.carne_picada_bovina }}",
+            "filezinho_de_peito_de_frango_sassami": "={{ $json.filezinho_de_peito_de_frango_sassami }}",
+            "lombo_suino_picado": "={{ $json.lombo_suino_picado }}",
+            "frango_inteiro": "={{ $json.frango_inteiro }}",
+            "file_de_tilapia": "={{ $json.file_de_tilapia }}",
+            "salsicha": "={{ $json.salsicha }}",
+            "ovo": "={{ $json.ovo }}",
+            "biscoito_de_polvilho": "={{ $json.biscoito_de_polvilho }}",
+            "biscoito_de_queijo": "={{ $json.biscoito_de_queijo }}",
+            "bolo": "={{ $json.bolo }}",
+            "pao_careca": "={{ $json.pao_careca }}",
+            "pao_frances": "={{ $json.pao_frances }}",
+            "pao_de_milho": "={{ $json.pao_de_milho }}",
+            "rosca": "={{ $json.rosca }}",
+            "torrada": "={{ $json.torrada }}",
+            "HORTIFRUTI": "",
+            "abobora_madura": "={{ $json.abobora_madura }}",
+            "abobrinha_verde": "={{ $json.abobrinha_verde }}",
+            "alface": "={{ $json.alface }}",
+            "abacaxi": "={{ $json.abacaxi }}",
+            "alho": "={{ $json.alho }}",
+            "batata_inglesa": "={{ $json.batata_inglesa }}",
+            "batata_doce": "={{ $json.batata_doce }}",
+            "banana": "={{ $json.banana }}",
+            "beterraba": "={{ $json.beterraba }}",
+            "cebola_de_cabeca": "={{ $json.cebola_de_cabeca }}",
+            "cenoura": "={{ $json.cenoura }}",
+            "chuchu": "={{ $json.chuchu }}",
+            "couve": "={{ $json.couve }}",
+            "inhame": "={{ $json.inhame }}",
+            "laranja": "={{ $json.laranja }}",
+            "limao": "={{ $json.limao }}",
+            "mandioca": "={{ $json.mandioca }}",
+            "melancia": "={{ $json.melancia }}",
+            "maca": "={{ $json.maca }}",
+            "melao": "={{ $json.melao }}",
+            "milho": "={{ $json.milho }}",
+            "repolho_verde": "={{ $json.repolho_verde }}",
+            "repolho_roxo": "={{ $json.repolho_roxo }}",
+            "tangerina_mexerica_": "={{ $json.tangerina_mexerica_ }}",
+            "salcinha": "={{ $json.salsinha }}",
+            "tomate": "={{ $json.tomate }}",
+            "vagem": "={{ $json.vagem }}",
+            "margarina": "={{ $json.margarina }}",
+            "manteiga": "={{ $json.manteiga }}",
+            "requeijao": "={{ $json.requeijao }}",
+            "cebolinha_verde": "={{ $json.cebolinha_verde }}",
+            "mamão": "={{ $json.mamao }}"
+          },
+          "matchingColumns": [
+            "alunos_da_pre_escola"
+          ],
+          "schema": [
+            {
+              "id": "alunos_da_pre_escola",
+              "displayName": "alunos_da_pre_escola",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "alunos_do_ensino_fundamental",
+              "displayName": "alunos_do_ensino_fundamental",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "alunos_do_estado",
+              "displayName": "alunos_do_estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "outros",
+              "displayName": "outros",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "NÃO PERECÍVEIS",
+              "displayName": "NÃO PERECÍVEIS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "acafrao",
+              "displayName": "acafrao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "arroz",
+              "displayName": "arroz",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "acucar",
+              "displayName": "acucar",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "achocolatado",
+              "displayName": "achocolatado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "azeite",
+              "displayName": "azeite",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "amido_de_milho",
+              "displayName": "amido_de_milho",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "batata_palha",
+              "displayName": "batata_palha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "bolacha_cream_cracker",
+              "displayName": "bolacha_cream_cracker",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "bolacha_rosquinha_de_coco",
+              "displayName": "bolacha_rosquinha_de_coco",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "extrato_de_tomate",
+              "displayName": "extrato_de_tomate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "colorau",
+              "displayName": "colorau",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "farinha_de_mandioca",
+              "displayName": "farinha_de_mandioca",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "feijao",
+              "displayName": "feijao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "aptamil_1_nestogeno_1",
+              "displayName": "aptamil_1_nestogeno_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "aptamil_2_nestogeno_2",
+              "displayName": "aptamil_2_nestogeno_2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "aptamil_sem_lactose",
+              "displayName": "aptamil_sem_lactose",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "pregomin_pepti",
+              "displayName": "pregomin_pepti",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "dieta_enteral_fortini",
+              "displayName": "dieta_enteral_fortini",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "leite_integral",
+              "displayName": "leite_integral",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "leite_integral_sem_lactose",
+              "displayName": "leite_integral_sem_lactose",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "macarrao_espaguete",
+              "displayName": "macarrao_espaguete",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "macarrao_parafuso",
+              "displayName": "macarrao_parafuso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "margarina",
+              "displayName": "margarina",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "manteiga",
+              "displayName": "manteiga",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "requeijao",
+              "displayName": "requeijao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "oleo_de_soja",
+              "displayName": "oleo_de_soja",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "sal_refinado",
+              "displayName": "sal_refinado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "PROTEÍNAS E PANIFICADOS",
+              "displayName": "PROTEÍNAS E PANIFICADOS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "carne_moida_bovina",
+              "displayName": "carne_moida_bovina",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "carne_picada_bovina",
+              "displayName": "carne_picada_bovina",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "filezinho_de_peito_de_frango_sassami",
+              "displayName": "filezinho_de_peito_de_frango_sassami",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "lombo_suino_picado",
+              "displayName": "lombo_suino_picado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "frango_inteiro",
+              "displayName": "frango_inteiro",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "file_de_tilapia",
+              "displayName": "file_de_tilapia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "salsicha",
+              "displayName": "salsicha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ovo",
+              "displayName": "ovo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "biscoito_de_polvilho",
+              "displayName": "biscoito_de_polvilho",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "biscoito_de_queijo",
+              "displayName": "biscoito_de_queijo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "bolo",
+              "displayName": "bolo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "pao_careca",
+              "displayName": "pao_careca",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "pao_frances",
+              "displayName": "pao_frances",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "pao_de_milho",
+              "displayName": "pao_de_milho",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "rosca",
+              "displayName": "rosca",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "torrada",
+              "displayName": "torrada",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "HORTIFRUTI",
+              "displayName": "HORTIFRUTI",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "abobora_madura",
+              "displayName": "abobora_madura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "abobrinha_verde",
+              "displayName": "abobrinha_verde",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "alface",
+              "displayName": "alface",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "abacaxi",
+              "displayName": "abacaxi",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "alho",
+              "displayName": "alho",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "batata_inglesa",
+              "displayName": "batata_inglesa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "batata_doce",
+              "displayName": "batata_doce",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "banana",
+              "displayName": "banana",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "beterraba",
+              "displayName": "beterraba",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "cebola_de_cabeca",
+              "displayName": "cebola_de_cabeca",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "cebolinha_verde",
+              "displayName": "cebolinha_verde",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "cenoura",
+              "displayName": "cenoura",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "chuchu",
+              "displayName": "chuchu",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "couve",
+              "displayName": "couve",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "inhame",
+              "displayName": "inhame",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "laranja",
+              "displayName": "laranja",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "limao",
+              "displayName": "limao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mandioca",
+              "displayName": "mandioca",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "melancia",
+              "displayName": "melancia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mamão",
+              "displayName": "mamão",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "maca",
+              "displayName": "maca",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "melao",
+              "displayName": "melao",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "milho",
+              "displayName": "milho",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "repolho_verde",
+              "displayName": "repolho_verde",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "repolho_roxo",
+              "displayName": "repolho_roxo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "salcinha",
+              "displayName": "salcinha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "tangerina_mexerica_",
+              "displayName": "tangerina_mexerica_",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tomate",
+              "displayName": "tomate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "vagem",
+              "displayName": "vagem",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        944,
+        0
+      ],
+      "id": "4db657f3-d435-4102-9bc6-374525c1f7f4",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "dkxvCchRYW9zxdex",
+          "name": "Google Sheets D977"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 60
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        560,
+        0
+      ],
+      "id": "b41eebc1-cdf5-4abf-a3a0-4cccb4c4c53f",
+      "name": "Wait",
+      "webhookId": "cd7bed4f-8972-47a6-9e42-7b63d436d2a6"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Lista Completa (Rótulos e Produtos)\nconst listaProdutos = [\n  // --- PESSOAS ---\n  \"ALUNOS DA PRÉ ESCOLA\", \"ALUNOS DO ENSINO FUNDAMENTAL\", \"ALUNOS DO ESTADO\", \"OUTROS\",\n  \n  // --- Não Perecíveis ---\n  \"AÇAFRÃO\", \"ARROZ\", \"AÇÚCAR\", \"ACHOCOLATADO\", \"AZEITE\", \"AMIDO DE MILHO\", \n  \"BATATA PALHA\", \"BOLACHA CREAM CRACKER\", \"BOLACHA ROSQUINHA DE COCO\", \n  \"EXTRATO DE TOMATE\", \"COLORAU\", \"FARINHA DE MANDIOCA\", \"FEIJÃO\", \n  \"APTAMIL 1 / NESTOGENO 1\", \"APTAMIL 2 / NESTOGENO 2\", \"APTAMIL SEM LACTOSE\", \n  \"PREGOMIN PEPTI\", \"DIETA ENTERAL - FORTINI\", \"LEITE INTEGRAL\", \n  \"LEITE INTEGRAL SEM LACTOSE\", \"MACARRÃO ESPAGUETE\", \"MACARRÃO PARAFUSO\", \n  \"MARGARINA\", \"MANTEIGA\", \"REQUEIJÃO\", \"ÓLEO DE SOJA\", \"SAL REFINADO\",\n\n  // --- Proteínas e Panificados ---\n  \"CARNE MOÍDA BOVINA\", \"CARNE PICADA BOVINA\", \n  \"FILEZINHO DE PEITO DE FRANGO SASSAMI\", \"LOMBO SUÍNO PICADO\", \n  \"FRANGO INTEIRO\", \"FILÉ DE TILÁPIA\", \"SALSICHA\", \"OVO\", \n  \"BISCOITO DE POLVILHO\", \"BISCOITO DE QUEIJO\", \"BOLO\", \n  \"PÃO CARECA\", \"PÃO FRANCÊS\", \n  \"PÃO DE MILHO\", \"ROSCA\", \"TORRADA\",\n\n  // --- Hortifruti ---\n  \"ABÓBORA MADURA\", \"ABOBRINHA VERDE\", \"ALFACE\", \"ABACAXI\", \"ALHO\", \n  \"BATATA INGLESA\", \"BATATA DOCE\", \"BANANA\", \"BETERRABA\", \n  \"CEBOLA DE CABEÇA\", \"CEBOLINHA VERDE\", \"CENOURA\", \"CHUCHU\", \"COUVE\", \n  \"INHAME\", \"LARANJA\", \"LIMÃO\", \"MANDIOCA\", \"MELANCIA\", \"MAMÃO\", \"MAÇÃ\", \n  \"MELÃO\", \"MILHO\", \"REPOLHO VERDE\", \"REPOLHO ROXO\", \"SALSINHA\", \n  \"TANGERINA (MEXERICA)\", \"TOMATE\", \"VAGEM\"\n];\n\n// === MAPA DE SINÔNIMOS ===\nconst mapaSinonimos = {\n  // Pessoas\n  \"ALUNOS DO ENSINO FUNDAMENTAL\": [\"fundamental\"],\n  \"ALUNOS DA PRÉ ESCOLA\": [\"pre escola\", \"jardim\", \"creche\", \"infantil\"],\n  \"ALUNOS DO ESTADO\": [\"estado\"], \n  \"OUTROS\": [\"outro\"],\n  \"LEITE INTEGRAL\": [\"leite\"],\n  \n  // Mantimentos\n  \"ACHOCOLATADO\": [\"chocolate\", \"nescau\", \"toddy\"],\n  \"EXTRATO DE TOMATE\": [\"pomarola\", \"molho\", \"massa de tomate\"],\n  \"BOLACHA CREAM CRACKER\": [\"agua e sal\", \"bolacha de sal\"],\n  \"MACARRÃO ESPAGUETE\": [\"espaguete\", \"spaghetti\"],\n  \"MACARRÃO PARAFUSO\": [\"parafuso\"],\n  \"SAL REFINADO\": [\"sal\"],\n  \"ÓLEO DE SOJA\": [\"oleo\"], // Adicionei \"oleo\" aqui para garantir\n\n  // Carnes e Pães\n  \"CARNE MOÍDA BOVINA\": [\"carne bovina moida\", \"moida\", \"carne moida\"],\n  \"CARNE PICADA BOVINA\": [\"carne bovina picada\", \"picada\", \"carne picada\", \"carne picadinha\"], \n  \"FILEZINHO DE PEITO DE FRANGO SASSAMI\": [\"fileziho de peito de frango\", \"peito de frango\", \"sassami\", \"filezinho\"],\n  \"PÃO FRANCÊS\": [\"pao de sal\", \"pao frances\"],\n\n  // Hortifruti\n  \"BATATA INGLESA\": [\"batatinha\", \"batata\"], \n  \"CEBOLA DE CABEÇA\": [\"cebola\"],\n  \"CEBOLINHA VERDE\": [\"cebolinha\", \"cheiro verde\"],\n  \"TANGERINA (MEXERICA)\": [\"mexerica\", \"tangerina\", \"bergamota\"],\n  \"ABÓBORA MADURA\": [\"abobora\"],\n  \"ABOBRINHA VERDE\": [\"abobrinha\"],\n  \"MANDIOCA\": [\"aipim\", \"macaxeira\"],\n  \"SALSINHA\": [\"salsa\"],\n  \"REPOLHO VERDE\": [\"repolho\"]\n};\n\n// 2. Pega a mensagem\nconst mensagemRecebida = items[0].json.message.text || \"\"; \n\n// 3. Funções auxiliares\nconst criarVariavel = (texto) => {\n  return texto.toLowerCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\").replace(/[^a-z0-9]/g, \"_\").replace(/_+/g, \"_\");\n};\n\nconst normalizarBusca = (texto) => {\n  return texto.toLowerCase().normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\").trim();\n};\n\n// 4. Inicializa\nlet resultado = {};\nlistaProdutos.forEach(p => resultado[criarVariavel(p)] = 0);\n\n// 5. PROCESSAMENTO INTELIGENTE (Split por vírgula + Regex de Final)\n// Separa por vírgula ou nova linha\nconst itensInput = mensagemRecebida.split(/,|\\n/);\n\nitensInput.forEach(itemInput => {\n  if (!itemInput.trim()) return; // Pula vazios\n\n  // A MÁGICA: Regex que busca número APENAS NO FINAL da string\n  // Aceita \"10\", \"10.5\", \"10,5\"\n  const regexFinal = /(\\d+([.,]\\d+)?)\\s*$/;\n  const match = itemInput.match(regexFinal);\n\n  let quantidade;\n  let nomeDigitado;\n\n  if (match) {\n    // Se achou número no final\n    let numeroTexto = match[1].replace(',', '.');\n    quantidade = parseFloat(numeroTexto);\n    // Remove o número da string para sobrar só o nome\n    nomeDigitado = itemInput.replace(regexFinal, \"\"); \n  } else {\n    // Se NÃO achou número\n    quantidade = 12345;\n    nomeDigitado = itemInput;\n  }\n\n  // Limpa o nome digitado (tira espaços extras e acentos)\n  const nomeBusca = normalizarBusca(nomeDigitado);\n\n  // --- BUSCA DO CAMPEÃO (Qual produto oficial bate com esse nome?) ---\n  let melhorProduto = null;\n  let maiorTamanhoMatch = 0;\n\n  listaProdutos.forEach(produto => {\n    const nomeOficial = normalizarBusca(produto);\n    let matchAtual = null;\n\n    // Verifica Nome Oficial\n    if (nomeBusca.includes(nomeOficial)) {\n      matchAtual = nomeOficial;\n    }\n\n    // Verifica Sinônimos\n    if (mapaSinonimos[produto]) {\n      mapaSinonimos[produto].forEach(apelido => {\n        const apelidoLimpo = normalizarBusca(apelido);\n        if (nomeBusca.includes(apelidoLimpo)) {\n          // Se o apelido for maior que o match atual, ele ganha\n          if (!matchAtual || apelidoLimpo.length > matchAtual.length) {\n            matchAtual = apelidoLimpo;\n          }\n        }\n      });\n    }\n\n    // Compara com o campeão global desta linha\n    if (matchAtual) {\n      if (matchAtual.length > maiorTamanhoMatch) {\n        maiorTamanhoMatch = matchAtual.length;\n        melhorProduto = produto;\n      }\n    }\n  });\n\n  // Salva o resultado se achou algo\n  if (melhorProduto) {\n    resultado[criarVariavel(melhorProduto)] = quantidade;\n  }\n});\n\nreturn [{ json: resultado }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "35357207-2a63-4a6a-8c2d-cd25bc6ffe34",
+      "name": "extract_prodults"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Pega o texto da mensagem original\nconst textoOriginal = items[0].json.message.text || \"\";\n\n// =================================================\n// LÓGICA DO CAFÉ DA MANHÃ\n// =================================================\nconst textoLimpo = textoOriginal\n  .toLowerCase()\n  .normalize(\"NFD\")\n  .replace(/[\\u0300-\\u036f]/g, \"\");\n\nconst listaPanificados = [\n  { busca: \"pao frances\", nome: \"Pão Francês\" },\n  { busca: \"pao careca\", nome: \"Pão Careca\" },\n  { busca: \"pao de milho\", nome: \"Pão de Milho\" },\n  { busca: \"rosca\", nome: \"Rosca\" },\n  { busca: \"bolo\", nome: \"Bolo\" },\n  { busca: \"torrada\", nome: \"Torrada\" },\n  { busca: \"bolacha\", nome: \"Bolacha\" },\n  { busca: \"biscoito\", nome: \"Biscoito\" }\n];\n\nlet panificado = null;\nfor (const item of listaPanificados) {\n  if (textoLimpo.includes(item.busca)) {\n    panificado = item.nome;\n    break; \n  }\n}\n\nlet bebida = null;\nconst temLeite = textoLimpo.includes(\"leite\");\nconst temAchocolatado = textoLimpo.includes(\"achocolatado\") || textoLimpo.includes(\"chocolate\") || textoLimpo.includes(\"nescau\");\nconst temAcucar = textoLimpo.includes(\"acucar\");\n\nif (temLeite) {\n  if (temAchocolatado) {\n    bebida = \"Leite com Achocolatado\";\n  } else if (temAcucar) {\n    bebida = \"Leite Caramelizado\";\n  } else {\n    bebida = \"Leite Puro\";\n  }\n} else if (textoLimpo.includes(\"suco\")) {\n    bebida = \"Suco\";\n}\n\n// =================================================\n// LÓGICA DO ALMOÇO\n// =================================================\n\nconst itensAlmoco = [\n  // BASES\n  { busca: \"arroz\", nome: \"Arroz\" },\n  { busca: \"feijao\", nome: \"Feijão\" },\n  { busca: \"macarrao\", nome: \"Macarrão\" },\n  { busca: \"espaguete\", nome: \"Macarrão\" },\n  { busca: \"parafuso\", nome: \"Macarrão\" },\n  { busca: \"farofa\", nome: \"Farofa\" },\n\n  // PROTEÍNAS\n  { busca: \"carne moida\", nome: \"Carne Moída\" },\n  { busca: \"carne picada\", nome: \"Carne Picada Bovina\" },\n  { busca: \"sassami\", nome: \"Filé de Frango\" },\n  { busca: \"peito de frango\", nome: \"Filé de Frango\" },\n  { busca: \"frango inteiro\", nome: \"Frango\" },\n  { busca: \"lombo\", nome: \"Lombo Suíno\" },\n  { busca: \"tilapia\", nome: \"Peixe (Tilápia)\" },\n  { busca: \"salsicha\", nome: \"Salsicha\" },\n  { busca: \"ovo\", nome: \"Ovo\" },\n\n  // ACOMPANHAMENTOS E LEGUMES\n  { busca: \"batata palha\", nome: \"Batata Palha\" },\n  { busca: \"batata inglesa\", nome: \"Batata\" }, // Deixei \"Batata\" mais curto conforme seu exemplo visual\n  { busca: \"batata doce\", nome: \"Batata Doce\" },\n  { busca: \"abobora\", nome: \"Abóbora\" },\n  { busca: \"abobrinha\", nome: \"Abobrinha\" },\n  { busca: \"alface\", nome: \"Alface\" },\n  { busca: \"beterraba\", nome: \"Beterraba\" },\n  { busca: \"cenoura\", nome: \"Cenoura\" },\n  { busca: \"chuchu\", nome: \"Chuchu\" },\n  { busca: \"couve\", nome: \"Couve\" },\n  { busca: \"inhame\", nome: \"Inhame\" },\n  { busca: \"mandioca\", nome: \"Mandioca\" },\n  { busca: \"milho\", nome: \"Milho\" },\n  { busca: \"repolho\", nome: \"Repolho\" },\n  { busca: \"tomate\", nome: \"Tomate\" },\n  { busca: \"vagem\", nome: \"Vagem\" }\n];\n\nlet pratosAlmoco = [];\n\n// Separa os itens por vírgula\nconst itensSeparados = textoOriginal.toLowerCase().split(/,|\\n/);\n\nconst jaAdicionado = (nome) => pratosAlmoco.includes(nome);\n\nitensSeparados.forEach(pedaco => {\n    const pedacoLimpo = pedaco.normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\").trim();\n\n    itensAlmoco.forEach(item => {\n        if (pedacoLimpo.includes(item.busca)) {\n            // Filtros de Segurança\n            if (item.busca === \"tomate\" && pedacoLimpo.includes(\"extrato\")) return;\n            if (item.busca === \"milho\" && (pedacoLimpo.includes(\"pao\") || pedacoLimpo.includes(\"amido\"))) return;\n            if (item.busca === \"batata inglesa\" && pedacoLimpo.includes(\"palha\")) return;\n\n            if (!jaAdicionado(item.nome)) {\n                pratosAlmoco.push(item.nome);\n            }\n        }\n    });\n});\n\n// =================================================\n// FORMATAÇÃO FINAL (AQUI MUDOU)\n// =================================================\n\n// 1. Formata Almoço (sem prefixo \"Almoço:\")\nlet textoAlmoco = \"\";\nif (pratosAlmoco.length > 0) {\n    const ultimo = pratosAlmoco.pop();\n    textoAlmoco = pratosAlmoco.length > 0 \n        ? pratosAlmoco.join(\", \") + \" e \" + ultimo \n        : ultimo;\n} else {\n    textoAlmoco = \"Ingredientes do almoço não identificados\";\n}\n\n// 2. Formata Café (sem prefixo \"Café da manhã:\")\nlet textoCafe = \"Café não identificado\";\nif (panificado && bebida) {\n  textoCafe = `${panificado} e ${bebida}`;\n} else if (panificado) {\n  textoCafe = `${panificado}`;\n} else if (bebida) {\n  textoCafe = `Apenas ${bebida}`;\n}\n\n// 3. Monta a mensagem final com quebra de linha (\\n)\n// O \\n  significa \"pular linha\"\nconst mensagemFinal = `Café da manhã e Almoço: \\n${textoCafe}\\n${textoAlmoco}`;\n\nreturn [{\n  json: {\n    texto_formatado: mensagemFinal\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        160
+      ],
+      "id": "b146acc7-3ad9-4e3c-bbdd-b58513a1db07",
+      "name": "extract_menu"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "=556493174450@s.whatsapp.net",
+        "messageText": "=Pronto\n\n{{ $json.texto_formatado }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        432,
+        336
+      ],
+      "id": "9b29cfd0-3a2e-480a-b38d-bf45ce057275",
+      "name": "Enviar texto",
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "=Um minuto !!",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        -336
+      ],
+      "id": "a0ac5c62-df9b-46c0-b49a-c2384ddc26cb",
+      "name": "Send a text message1",
+      "webhookId": "d5c6de87-755e-422f-8203-d2a6581a2601",
+      "credentials": {
+        "telegramApi": {
+          "id": "pXCTKrjCa7LTrmg5",
+          "name": "Assistente MAPA"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Telegram Trigger": [
+      {
+        "json": {
+          "update_id": 720738461,
+          "message": {
+            "message_id": 29,
+            "from": {
+              "id": 7006144067,
+              "is_bot": false,
+              "first_name": "Diego",
+              "last_name": "Borges",
+              "username": "ds_borges",
+              "language_code": "pt-br"
+            },
+            "chat": {
+              "id": 7006144067,
+              "first_name": "Diego",
+              "last_name": "Borges",
+              "username": "ds_borges",
+              "type": "private"
+            },
+            "date": 1767627055,
+            "text": "Jardim 6, fundamental 34, estado 54, outro 30, arroz 5, achocolatado 1.6, extrato de tomate 0.3, feijão 2, leite 8, margarina 0.5, requeijão 0.2 óleo 0.9,  sal 0.12, filezinho de peito de frango 8, pão francês, alho 0.16, batata inglesa 2, beterraba 3, cebola de cabeça 0.3, cenoura 2.6, maçã 166"
+          }
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "extract_prodults",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Delete table or rows",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "extract_menu",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete table or rows": {
+      "main": [
+        []
+      ]
+    },
+    "Create a row": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many rows": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        []
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Get many rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "extract_prodults": {
+      "main": [
+        [
+          {
+            "node": "Create a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "extract_menu": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Enviar texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "17c78daa-15bd-4c07-b6a4-fd9d0d7b6631",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e850d0c6aabc26b2018bc6148b0e9c4bf40af3ef3090ce6809e83bfceb4b35c8"
+  },
+  "id": "NpRP3pd0J5887fsH",
+  "tags": []
+}

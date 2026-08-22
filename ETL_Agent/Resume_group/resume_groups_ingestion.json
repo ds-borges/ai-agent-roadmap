@@ -1,0 +1,541 @@
+{
+  "name": "resume_groups_ingestion",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        16,
+        80
+      ],
+      "id": "6c8f9462-c6ca-4695-982d-1f3a5a652cda",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "tableId": "resume_group",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "group_name",
+              "fieldValue": "Cashback e afins"
+            },
+            {
+              "fieldId": "message",
+              "fieldValue": "={{ $json.message }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        384,
+        -528
+      ],
+      "id": "5b8acb72-4b2f-4547-b5cd-4dddbc6816de",
+      "name": "Create a row",
+      "credentials": {
+        "supabaseApi": {
+          "id": "KMDKPkGaEfIIfjHs",
+          "name": "Supabase pessoal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "resume_group",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "group_name",
+              "fieldValue": "Moveis novos e usados"
+            },
+            {
+              "fieldId": "message",
+              "fieldValue": "={{ $json.message }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        384,
+        -368
+      ],
+      "id": "ecefce04-368f-40e6-9306-090ec7df0755",
+      "name": "Create a row1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "KMDKPkGaEfIIfjHs",
+          "name": "Supabase pessoal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "resume_group",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "group_name",
+              "fieldValue": "JTI vendas e compras"
+            },
+            {
+              "fieldId": "message",
+              "fieldValue": "={{ $json.message }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        384,
+        -208
+      ],
+      "id": "7c3021f1-24e6-4e81-827f-c464314d2155",
+      "name": "Create a row2",
+      "credentials": {
+        "supabaseApi": {
+          "id": "KMDKPkGaEfIIfjHs",
+          "name": "Supabase pessoal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "resume_group",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "group_name",
+              "fieldValue": "Jatai Gambiras e Vendas."
+            },
+            {
+              "fieldId": "message",
+              "fieldValue": "={{ $json.message }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        384,
+        -32
+      ],
+      "id": "2568571b-2e20-475d-a435-3ab5e4c7a920",
+      "name": "Create a row3",
+      "credentials": {
+        "supabaseApi": {
+          "id": "KMDKPkGaEfIIfjHs",
+          "name": "Supabase pessoal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "resume_group",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "group_name",
+              "fieldValue": "Desapego Jatai"
+            },
+            {
+              "fieldId": "message",
+              "fieldValue": "={{ $json.message }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        384,
+        144
+      ],
+      "id": "9167e902-f043-4175-855c-56c72c751cc3",
+      "name": "Create a row4",
+      "credentials": {
+        "supabaseApi": {
+          "id": "KMDKPkGaEfIIfjHs",
+          "name": "Supabase pessoal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst msg = input.body?.data?.message;\n\n// 1. Extração do texto\nconst text = (\n  msg?.conversation || \n  msg?.extendedTextMessage?.text || \n  msg?.imageMessage?.caption || \n  msg?.videoMessage?.caption || \n  \"\"\n).trim();\n\nconst group = input.body?.data?.key?.remoteJid || \"\";\n\n// Descarta mensagens muito curtas ou palavras soltas (< 15 caracteres)\nif (!text || text.length < 15) {\n  return [];\n}\n\n// 2. Blacklist de Serviços, Spam e Golpes\nconst isLiveAnimal = /(filhote|shitzu|shihtzu|pitbull|pastor\\s*alem[ãa]o|adop[çc][ãa]o|ado[çc][ãa]o|para\\s*cruzar|cadela|doa-se\\s*(cachorro|gato|gatinho))/i.test(text);\nconst isServiceOrRent = /(aluga-se\\s*(casa|kitnet|quarto)|fa[çc]o\\s*faxina|diarista|sobrancelha|manicure)/i.test(text);\nconst isTelecomSpam = /(fibra\\s*[oó]pt?ica|internet\\s*fibra|instala[çc][ãa]o\\s*gr[áa]tis|algu[ée]m\\s*precisando\\s*(de\\s*)?(internet|wi-?fi)|planos?\\s*pra\\s*sua\\s*casa|ultra\\s*velocidade)/i.test(text);\nconst isFinancialSpam = /(maquininha(\\s*ton|\\s*pagseguro|\\s*infinitepay|\\s*sumup)?|menor\\s*taxa\\s*do\\s*brasil|empr[ée]stimo\\s*fgts|antecipa[çc][ãa]o|cons[óo]rcio|financiamento|consultor\\s*de\\s*vendas|abrindo\\s*credi[áa]rio)/i.test(text);\nconst isIptvSpam = /(iptv|p2p|grade\\s*de\\s*canais|canais\\s*abertos\\s*e\\s*fechados|liberamos\\s*conte[úu]dos|tv\\s*box|smart\\s*iptv|reais\\s*mensais)/i.test(text);\n\n// 3. Blacklist de Conversas, Opiniões, Reclamações, Dúvidas e Histórias\nconst isChatOrOpinion = /(n[ãa]o\\s*confio|n[ãa]o\\s*presta|recomendo|algu[ée]m\\s*(tem|sabe|indica|vende|conhece)|procuro|compro|onde\\s*(acho|encontro)|acabei\\s*de\\s*pedir|pedi\\s*um\\s*(lanche|hamb[úu]rguer|pizza)|comprei|pedi\\s*devolu[çc][ãa]o|fiquei\\s*com|veio\\s*com\\s*defeito)/i.test(text);\n\n// 4. Blacklist de Links Sociais, Convites e Perfis de Vendedor\nconst isBadLink = /(chat\\.whatsapp\\.com|wa\\.me\\/|api\\.whatsapp\\.com|t\\.me\\/|telegram\\.me|instagram\\.com|facebook\\.com|tiktok\\.com|vendedor\\.site|mercadolivre\\.com(\\.br)?\\/social\\/)/i.test(text);\n\nif (isLiveAnimal || isServiceOrRent || isTelecomSpam || isFinancialSpam || isIptvSpam || isChatOrOpinion || isBadLink) {\n  return [];\n}\n\n// 5. Filtro Anti-Ruído (Conversas curtas)\nconst noiseRegex = /^(kkk|haha|rsrs|bom dia|boa tarde|boa noite|obrigad[oa]|valeu|show|up)\\b/i;\nif (noiseRegex.test(text) && text.length < 40) {\n  return [];\n}\n\n// 6. Descarta mensagens sem descrição do produto (ex: \"Vendo R$200\", \"Vendo. Aceito propostas.\")\nif (/^(vendo|vende-se|aceito\\s*propostas?|troco)(\\s*(r\\$|\\$)?\\s*\\d+)?(\\s*aceito\\s*propostas?)?\\.?$/i.test(text.trim())) {\n  return [];\n}\n\n// 7. Detecção de Oferta / Venda / Produto Genérico\nconst priceRegex = /(r\\$|rs\\b|rs:|reais|reias|\\$\\s*\\d+|\\b\\d+\\s*reais\\b|\\b[pmg]\\s+\\d{1,4}\\b)/i;\nconst promoKeywordsRegex = /(cupom|desconto|\\b\\d+%\\s*off\\b|frete\\s*gr[áa]tis|menor\\s*pre[çc]o|promo[çc][ãa]o|oferta|cashback|comprar|vend[eo]|vendo\\s*ou\\s*troco)/i;\nconst hasEcommerceLink = /(amzn\\.to|link\\.amazon|amazon\\.com|shope\\.ee|shopee\\.com|mercadolivre\\.com|mercadolivre\\.com\\.br|magalu\\.me|magazineluiza\\.com|aliexpress\\.com|kabum\\.com|terabyteshop\\.com|pichau\\.com|casasbahia\\.com)/i.test(text);\n\nconst isOffer = priceRegex.test(text) || promoKeywordsRegex.test(text) || hasEcommerceLink;\n\nif (!isOffer) {\n  return [];\n}\n\nreturn [{\n  json: {\n    group,\n    message: text\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -464,
+        -160
+      ],
+      "id": "a78b5bce-0ae7-4d86-955b-565ef97fbb4a",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "6802d1b9-8648-447a-9eab-13a920212f13",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -720,
+        -160
+      ],
+      "id": "16efefda-81aa-46cc-9c74-65fa0213633d",
+      "name": "Webhook",
+      "webhookId": "6802d1b9-8648-447a-9eab-13a920212f13"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "fe5b3a34-9035-486b-8788-c577e82ff627",
+              "leftValue": "={{ $json.group }}",
+              "rightValue": "120363282113264045@g.us",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "0a898f46-9c84-4453-ae38-0adc1e6d5b2d",
+              "leftValue": "={{ $json.message }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -240,
+        -160
+      ],
+      "id": "dd0a92a6-b793-4732-bc7e-f0b9859ebb77",
+      "name": "group_by_web2"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.group }}",
+                    "rightValue": "120363282113264045@g.us",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "7ce353b6-a314-493d-9233-f7c869b2b754"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Cashback e afins"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "584850ce-2492-4aba-81c9-641f6834106f",
+                    "leftValue": "={{ $json.group }}",
+                    "rightValue": "120363324420847951@g.us",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Moveis novos e usados"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "87b5250f-781f-4199-8bed-9d7dbb0d1888",
+                    "leftValue": "={{ $json.group }}",
+                    "rightValue": "120363391741484707@g.us",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "JTI vendas e compras"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "05ea46ba-7d32-4209-a481-b0dff6a273ce",
+                    "leftValue": "={{ $json.group }}",
+                    "rightValue": "556496094856-1453208618@g.us",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Jatai Gambiras e Vendas."
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "54ddee01-deb0-4b46-8f19-7e7c2b933e03",
+                    "leftValue": "={{ $json.group }}",
+                    "rightValue": "120363029871391298@g.us",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Jatai"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "a19a76aa-fec7-4256-bbe0-eeb92574284f",
+                    "leftValue": "={{ $json.group }}",
+                    "rightValue": " 556499520841-1602692843@g.us",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Desapego artigos INFANTIS"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        80,
+        -240
+      ],
+      "id": "19581c60-87f6-4e97-89af-1af27a8ba115",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "tableId": "resume_group",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "group_name",
+              "fieldValue": "Desapego artigos INFANTIS"
+            },
+            {
+              "fieldId": "message",
+              "fieldValue": "={{ $json.message }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        384,
+        320
+      ],
+      "id": "e2bbfb38-458f-411a-a970-7a62334e77b3",
+      "name": "Create a row5",
+      "credentials": {
+        "supabaseApi": {
+          "id": "KMDKPkGaEfIIfjHs",
+          "name": "Supabase pessoal"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "group_by_web2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "group_by_web2": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Create a row",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create a row1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create a row2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create a row3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create a row4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create a row5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "pg8ALIIg5c67G45X",
+    "timeSavedPerExecution": 15
+  },
+  "versionId": "c4fa0cdd-bc9d-4b50-9f14-6f29a0ee84c1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e850d0c6aabc26b2018bc6148b0e9c4bf40af3ef3090ce6809e83bfceb4b35c8"
+  },
+  "id": "kbgWKRYqYWibhzQb",
+  "tags": []
+}

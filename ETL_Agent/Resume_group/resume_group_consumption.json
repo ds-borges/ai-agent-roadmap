@@ -1,0 +1,838 @@
+{
+  "name": "resume_group_consumption",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 6
+            },
+            {
+              "triggerAtHour": 19
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        208,
+        -16
+      ],
+      "id": "4c2c2e44-14f2-46e3-859b-1495a2bd08c6",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "resume_group",
+        "limit": 75,
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "processed",
+              "condition": "is",
+              "keyValue": "false"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        368,
+        -16
+      ],
+      "id": "b42946f5-0c2f-4ba2-919c-9fd9eb4d2db1",
+      "name": "Supabase: Get Messages",
+      "credentials": {
+        "supabaseApi": {
+          "id": "KMDKPkGaEfIIfjHs",
+          "name": "Supabase pessoal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "user_preferences",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "active",
+              "condition": "is",
+              "keyValue": "true"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        544,
+        -16
+      ],
+      "id": "eae9d933-a7c5-4916-b7c6-b63beba08bc2",
+      "name": "Supabase: Get Preferences",
+      "credentials": {
+        "supabaseApi": {
+          "id": "KMDKPkGaEfIIfjHs",
+          "name": "Supabase pessoal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-flash-lite-latest",
+          "mode": "list",
+          "cachedResultName": "models/gemini-flash-lite-latest"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Você é um curador e garimpeiro de oportunidades. Sua função é filtrar mensagens de promoções e classificados locais.\n\nINTERESSES:\n1. Hardware/TI: Notebook, memórias, SSD/NVMe, servidor, switch, cabos de rede, roteador.\n2. Eletrônicos/Gadgets: Smartphones, cabos, carregadores GaN/USB-C, fones bluetooth, powerbanks.\n3. Oficina/Motos: Ferramentas elétricas/manuais (esmerilhadeira, parafusadeira, solda), peças de moto, óleo 10w30.\n4. Impressão 3D: Filamentos (PLA/PETG), nozzles, peças de reposição.\n5. Classificados Locais: Móveis de oficina/escritório (bancadas, estantes resistentes), máquinas e ferramentas usadas em bom estado.\n\nREJEITE SUMARIAMENTE:\nRoupas, calçados, chinelos, alimentos, cafés, doces, bebidas alcoólicas, pets/animais, vagas de emprego/agências, serviços de internet fibra óptica, imóveis e caminhões/veículos pesados.\n\nRESPONDA EXCLUSIVAMENTE COM JSON PURO (sem markdown, sem ```json):\n{\n  \"ecommerce\": [\n    {\"item\": \"Nome curto\", \"preco\": \"R$ XX\", \"cupom\": \"CUPOM ou null\", \"link\": \"https://link\"}\n  ],\n  \"local\": [\n    {\"grupo\": \"Grupo\", \"item\": \"Descrição curta\", \"preco\": \"R$ XX ou A combinar\", \"contato\": \"Tel/Zap se houver\"}\n  ]\n}\nSe uma categoria não tiver itens válidos, retorne a lista vazia [].\n\n{{ $json.ecommerce_payload }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        -96
+      ],
+      "id": "bef6cf34-cec8-40f3-997c-3def5353a2a5",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "7cVvQtTUhKtlt9LH",
+          "name": "Google Gemini D97S"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-flash-lite-latest",
+          "mode": "list",
+          "cachedResultName": "models/gemini-flash-lite-latest"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Você é um curador e garimpeiro de oportunidades. Sua função é filtrar mensagens de promoções e classificados locais.\n\nINTERESSES:\n1. Hardware/TI: Notebook, memórias, SSD/NVMe, servidor, switch, cabos de rede, roteador.\n2. Eletrônicos/Gadgets: Smartphones, cabos, carregadores GaN/USB-C, fones bluetooth, powerbanks.\n3. Oficina/Motos: Ferramentas elétricas/manuais (esmerilhadeira, parafusadeira, solda), peças de moto, óleo 10w30.\n4. Impressão 3D: Filamentos (PLA/PETG), nozzles, peças de reposição.\n5. Classificados Locais: Móveis de oficina/escritório (bancadas, estantes resistentes), máquinas e ferramentas usadas em bom estado.\n\nREJEITE SUMARIAMENTE:\nRoupas, calçados, chinelos, alimentos, cafés, doces, bebidas alcoólicas, pets/animais, vagas de emprego/agências, serviços de internet fibra óptica, imóveis e caminhões/veículos pesados.\n\nRESPONDA EXCLUSIVAMENTE COM JSON PURO (sem markdown, sem ```json):\n{\n  \"ecommerce\": [\n    {\"item\": \"Nome curto\", \"preco\": \"R$ XX\", \"cupom\": \"CUPOM ou null\", \"link\": \"https://link\"}\n  ],\n  \"local\": [\n    {\"grupo\": \"Grupo\", \"item\": \"Descrição curta\", \"preco\": \"R$ XX ou A combinar\", \"contato\": \"Tel/Zap se houver\"}\n  ]\n}\nSe uma categoria não tiver itens válidos, retorne a lista vazia [].\n\n{{ $json.local_payload }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        80
+      ],
+      "id": "7ea9ef1a-cc9e-4a7b-9c38-8441d19f1b74",
+      "name": "Message a model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "7cVvQtTUhKtlt9LH",
+          "name": "Google Gemini D97S"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const messagesData = $('Supabase: Get Messages').all().map(i => i.json);\n\nif (!messagesData || messagesData.length === 0) {\n  return [];\n}\n\nconst ecommerceIds = [];\nconst ecommerceMsgs = [];\nconst localIds = [];\nconst localMsgs = [];\nconst allIds = [];\n\nfor (const m of messagesData) {\n  const g = m.group_name || \"\";\n  const text = (m.message || \"\").replace(/\\r?\\n|\\r/g, \" \").trim();\n  \n  if (!text) continue;\n\n  allIds.push(m.id);\n\n  if (g.includes(\"Cashback\")) {\n    ecommerceIds.push(m.id);\n    ecommerceMsgs.push(text);\n  } else {\n    localIds.push(m.id);\n    localMsgs.push(`[${g}] ${text}`);\n  }\n}\n\nreturn [{\n  json: {\n    message_ids: allIds,             // Todos os IDs\n    ecommerce_ids: ecommerceIds,     // Apenas os IDs do E-commerce\n    ecommerce_payload: ecommerceMsgs,// Payload do E-commerce\n    local_ids: localIds,             // Apenas os IDs do Local\n    local_payload: localMsgs         // Payload do Local\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        -16
+      ],
+      "id": "b6b6618f-d122-4764-819e-db9ac2b8a3e5",
+      "name": "Code_split_groups"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Puxa as mensagens do Supabase\nconst messagesData = $('Supabase: Get Messages').all().map(i => i.json);\n\nif (!messagesData || messagesData.length === 0) {\n  return [];\n}\n\n// Payload ultraleve: apenas id, grupo e texto limpo\nconst messages = messagesData.map(m => ({\n  group: m.group_name || \"G\",\n  offers: (m.message || \"\").replace(/\\r?\\n|\\r/g, \" \").trim() // coloca em linha única para enxugar ainda mais\n}));\n\nreturn [{\n  json: {\n    total_messages: messages.length,\n    messages_payload: messages\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        704,
+        -16
+      ],
+      "id": "92f29480-8244-4621-a5ba-5641d74068e2",
+      "name": "Code_filter"
+    },
+    {
+      "parameters": {
+        "amount": 60
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1088,
+        80
+      ],
+      "id": "12e3aeeb-2fa9-4cbe-854f-f5326e3559b7",
+      "name": "Wait",
+      "webhookId": "d4d12d8e-9c85-4c0a-8fee-7a4ed299ab72"
+    },
+    {
+      "parameters": {
+        "amount": 60
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1088,
+        -96
+      ],
+      "id": "588cc6d7-03a5-485b-94a6-53282936e804",
+      "name": "Wait1",
+      "webhookId": "e180ad47-0307-4adc-95d9-9d4cd6580fcc"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "operation": "send-audio",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "={{ $env.WHATSAPP_DESTINATARIO_DIEGO }}",
+        "media": "={{ $json.data }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        2464,
+        -368
+      ],
+      "id": "e2f4dc73-a27f-47c4-9ebd-4bab5c89fc3c",
+      "name": "Enviar audio",
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "binaryToPropery",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        2240,
+        -368
+      ],
+      "id": "a774157e-736b-44e3-a157-a6c5015f1e3c",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "operation": "send-audio",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "={{ $env.WHATSAPP_DESTINATARIO_DIEGO }}",
+        "media": "={{ $json.data }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        2464,
+        224
+      ],
+      "id": "10fa67c8-183d-4ec8-b01c-28b36c3c3177",
+      "name": "Enviar audio1",
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "binaryToPropery",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        2240,
+        64
+      ],
+      "id": "74aa093b-da56-4e87-8996-0e7021afb87a",
+      "name": "Extract from File1"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "={{ $env.WHATSAPP_DESTINATARIO_DIEGO }}",
+        "messageText": "={{ $('text_to_spech').item.json.caption_text }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        2464,
+        -544
+      ],
+      "id": "59f74936-f657-4a91-baa4-2fd2ac8c59a0",
+      "name": "Enviar texto",
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "={{ $env.WHATSAPP_DESTINATARIO_DIEGO }}",
+        "messageText": "={{ $('text_to_spech1').item.json.caption_text }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        2464,
+        64
+      ],
+      "id": "5c6cced6-7508-4836-a7d5-706055962531",
+      "name": "Enviar texto1",
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rawText = $input.first().json.content.parts[0].text;\n\nlet parsed = { ecommerce: [], local: [] };\ntry {\n  parsed = JSON.parse(rawText);\n} catch (e) {\n  parsed = { ecommerce: [], local: [] };\n}\n\nconst ecom = parsed.ecommerce || [];\nconst loc = parsed.local || [];\n\nif (ecom.length === 0 && loc.length === 0) {\n  return [{ json: { has_content: false } }];\n}\n\n// 1. Texto falado (sem links, sem emojis que o TTS tenta soletrar)\nlet speech = \"Aqui está o seu resumo de oportunidades. \";\n\nif (ecom.length > 0) {\n  speech += \"Nas ofertas online: \";\n  for (const item of ecom) {\n    speech += `${item.item}, saindo por ${item.preco}. `;\n    if (item.cupom) speech += `Com o cupom ${item.cupom}. `;\n  }\n}\n\nif (loc.length > 0) {\n  speech += \"Nos classificados de Jataí: \";\n  for (const item of loc) {\n    speech += `No grupo ${item.grupo}, ${item.item}, por ${item.preco}. `;\n  }\n}\n\n// 2. Mantém o texto visual para enviar como legenda ou mensagem de apoio\nlet visualText = \"⚡ *RADAR DE OPORTUNIDADES*\\n\\n\";\nif (ecom.length > 0) {\n  visualText += \"🛒 *E-COMMERCE*\\n\";\n  for (const item of ecom) {\n    visualText += `• *${item.item}* - ${item.preco}\\n  🔗 [Link](${item.link})\\n`;\n  }\n}\n\nreturn [{\n  json: {\n    has_content: true,\n    speech_script: speech,\n    caption_text: visualText\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1584,
+        -96
+      ],
+      "id": "1bcd77f7-a711-49b2-b042-769926c1fbe2",
+      "name": "text_to_spech"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rawText = $input.first().json.content.parts[0].text;\n\nlet parsed = { ecommerce: [], local: [] };\ntry {\n  // Limpa possíveis blocos ```json ... ``` que o modelo possa devolver\n  const cleanedText = rawText.replace(/```json|```/gi, '').trim();\n  parsed = JSON.parse(cleanedText);\n} catch (e) {\n  parsed = { ecommerce: [], local: [] };\n}\n\nconst ecom = parsed.ecommerce || [];\nconst loc = parsed.local || [];\n\nif (ecom.length === 0 && loc.length === 0) {\n  return [{ json: { has_content: false } }];\n}\n\n// 1. Texto falado (TTS)\nlet speech = \"Aqui está o seu resumo de oportunidades. \";\n\nif (ecom.length > 0) {\n  speech += \"Nas ofertas online: \";\n  for (const item of ecom) {\n    speech += `${item.item}, saindo por ${item.preco}. `;\n    if (item.cupom) speech += `Com o cupom ${item.cupom}. `;\n  }\n}\n\nif (loc.length > 0) {\n  speech += \"Nos classificados locais: \";\n  for (const item of loc) {\n    speech += `No grupo ${item.grupo}, ${item.item}, por ${item.preco}. `;\n  }\n}\n\n// 2. Texto visual (Legenda / WhatsApp)\nlet visualText = \"⚡ *RADAR DE OPORTUNIDADES*\\n\\n\";\n\nif (ecom.length > 0) {\n  visualText += \"🛒 *E-COMMERCE*\\n\";\n  for (const item of ecom) {\n    visualText += `• *${item.item}* - ${item.preco}\\n`;\n    if (item.cupom) visualText += `  🏷️ Cupom: \\`${item.cupom}\\`\\n`;\n    if (item.link) visualText += `  🔗 [Link](${item.link})\\n`;\n  }\n  visualText += \"\\n\";\n}\n\nif (loc.length > 0) {\n  visualText += \"📍 *CLASSIFICADOS LOCAIS*\\n\";\n  for (const item of loc) {\n    visualText += `• [${item.grupo}] *${item.item}* - ${item.preco}\\n`;\n    if (item.contato) visualText += `  📞 Contato: ${item.contato}\\n`;\n  }\n}\n\nreturn [{\n  json: {\n    has_content: true,\n    speech_script: speech.trim(),\n    caption_text: visualText.trim()\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1584,
+        80
+      ],
+      "id": "17e02ef0-4dee-49b1-8254-40321803d6ef",
+      "name": "text_to_spech1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "67f54dd8-3d92-44ef-ad23-e35c3bbc8329",
+              "leftValue": "={{ $json.has_content }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1792,
+        -240
+      ],
+      "id": "6e69cb1b-2c77-4605-9dc0-49d023145511",
+      "name": "has_content_ecommerce"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "67f54dd8-3d92-44ef-ad23-e35c3bbc8329",
+              "leftValue": "={{ $json.has_content }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1792,
+        80
+      ],
+      "id": "9ba85a95-34e7-46f3-a6ff-a9dec334b6d6",
+      "name": "has_content_local_shop"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "DELETE FROM resume_group \nWHERE id IN (\n  {{ $('Code_split_groups').first().json.ecommerce_ids.map(id => `'${id}'::uuid`).join(', ') }}\n);",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1792,
+        -96
+      ],
+      "id": "6d627925-0bc0-4ea7-9279-639603a21024",
+      "name": "Execute a SQL query",
+      "credentials": {
+        "postgres": {
+          "id": "n0pVJuetcmVGDDI6",
+          "name": "Postgres pessoal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "DELETE FROM resume_group \nWHERE id IN ({{ $('Code_split_groups').item.json.local_ids.map(id => `'${id}'`).join(',')  }});",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1792,
+        224
+      ],
+      "id": "6683a337-2e88-4af8-b639-0a9f490d87ca",
+      "name": "Execute a SQL query1",
+      "credentials": {
+        "postgres": {
+          "id": "n0pVJuetcmVGDDI6",
+          "name": "Postgres pessoal"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://edge-tts:5050/v1/audio/speech",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"tts-1\",\n  \"input\": \"={{ $json.speech_script }}\",\n  \"voice\": \"pt-BR-AntonioNeural\",\n  \"response_format\": \"mp3\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        2032,
+        -368
+      ],
+      "id": "f176f27f-a81a-4a96-8918-8ae763b5e79b",
+      "name": "Edge-tts-convert-ecommerce",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "MOAaJS6srDLdaehX",
+          "name": "Bearer Auth account edge-tts"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=http://edge-tts:5050/v1/audio/speech",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"tts-1\",\n  \"input\": \"={{ $json.speech_script }}\",\n  \"voice\": \"pt-BR-AntonioNeural\",\n  \"response_format\": \"mp3\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        2032,
+        64
+      ],
+      "id": "ff09d55a-f4d6-4dae-870c-c3d44b32f6d5",
+      "name": "Edge-tts-convert-local-commerce",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "MOAaJS6srDLdaehX",
+          "name": "Bearer Auth account edge-tts"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "={{ $env.WHATSAPP_DESTINATARIO_DIEGO }}",
+        "messageText": "=📍 RADAR DE OFERTAS | COMÉRCIO LOCAL\n\n🔎 Nenhuma oferta fora da curva ou encarte vantajoso identificado na região nesta checagem.\n\nO robô continua rastreando os estabelecimentos. Até a próxima atualização! 🫡",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        2032,
+        256
+      ],
+      "id": "d04fadfd-1513-4101-b451-2f3061d682f7",
+      "name": "Enviar texto2",
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "whatsapp-marialsdp",
+        "remoteJid": "={{ $env.WHATSAPP_DESTINATARIO_DIEGO }}",
+        "messageText": "=⚡ RADAR DE OFERTAS | E-COMMERCE\n\n🔎 Nenhuma super promoção, bug de preço ou cupom relevante encontrado nos sites nesta checagem.\n\nO robô continua rastreando a internet. Até a próxima atualização! 🫡",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        2032,
+        -224
+      ],
+      "id": "efd498e5-6a2e-4515-b05b-b7b8f3789b0f",
+      "name": "Enviar texto3",
+      "credentials": {
+        "evolutionApi": {
+          "id": "vbPnQEogyuAhn792",
+          "name": "Evolution account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Supabase: Get Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase: Get Messages": {
+      "main": [
+        [
+          {
+            "node": "Supabase: Get Preferences",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase: Get Preferences": {
+      "main": [
+        [
+          {
+            "node": "Code_filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "text_to_spech",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model1": {
+      "main": [
+        [
+          {
+            "node": "text_to_spech1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code_split_groups": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code_filter": {
+      "main": [
+        [
+          {
+            "node": "Code_split_groups",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Message a model1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Enviar audio",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Enviar texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File1": {
+      "main": [
+        [
+          {
+            "node": "Enviar audio1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Enviar texto1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "text_to_spech": {
+      "main": [
+        [
+          {
+            "node": "has_content_ecommerce",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Execute a SQL query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "text_to_spech1": {
+      "main": [
+        [
+          {
+            "node": "has_content_local_shop",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Execute a SQL query1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "has_content_ecommerce": {
+      "main": [
+        [
+          {
+            "node": "Edge-tts-convert-ecommerce",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Enviar texto3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "has_content_local_shop": {
+      "main": [
+        [
+          {
+            "node": "Edge-tts-convert-local-commerce",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Enviar texto2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar texto": {
+      "main": [
+        []
+      ]
+    },
+    "Edge-tts-convert-ecommerce": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edge-tts-convert-local-commerce": {
+      "main": [
+        [
+          {
+            "node": "Extract from File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "pg8ALIIg5c67G45X",
+    "timeSavedPerExecution": 35
+  },
+  "versionId": "09283a20-827f-4fbc-89c0-f8449ae01dbc",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e850d0c6aabc26b2018bc6148b0e9c4bf40af3ef3090ce6809e83bfceb4b35c8"
+  },
+  "id": "haxdgcjFLftDOOp9",
+  "tags": []
+}
